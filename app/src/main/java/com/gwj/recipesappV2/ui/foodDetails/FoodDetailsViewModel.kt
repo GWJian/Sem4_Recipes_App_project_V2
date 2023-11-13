@@ -105,7 +105,7 @@ class FoodDetailsViewModel @Inject constructor(
 //                    it?.strIngredient18,
 //                    it?.strIngredient19,
 //                    it?.strIngredient20,
-//                ).filterNotNull().filter { it.isNotEmpty() }
+//                ).filter { it.isNotEmpty() }
 //            }
 //        } catch (e: Exception) {
 //            //Log.d("debugging_FoodDetailsViewModel", "getMealByName_error: $e")
