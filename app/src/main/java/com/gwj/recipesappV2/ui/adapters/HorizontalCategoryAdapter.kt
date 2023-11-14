@@ -6,13 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
+import com.gwj.recipesappV2.R
 import com.gwj.recipesappV2.data.model.Category
 import com.gwj.recipesappV2.databinding.HorizontalLayoutCategoriesItemBinding
 
 class HorizontalCategoryAdapter(
     private var categories: List<Category>,
-    private var onCategoryClick: (Category) -> Unit
+    private var onCategoryClick: (Category) -> Unit,
 ) : RecyclerView.Adapter<HorizontalCategoryAdapter.CategoryOnClickViewHolder>() {
+    private var lastClickedView: View? = null
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -40,15 +42,23 @@ class HorizontalCategoryAdapter(
 
     //This allows user to click on the category and get the meals from that category
     inner class CategoryOnClickViewHolder(
-        private val binding:HorizontalLayoutCategoriesItemBinding
-    ): RecyclerView.ViewHolder(binding.root) {
+        private val binding: HorizontalLayoutCategoriesItemBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(category: Category) {
             binding.run {
-                tvCategories.text = category.strCategory //set data to tvCategories
+                tvCategories.text = category.strCategory
 
                 itemView.setOnClickListener {
+                    // if user clicked other tvCategores,previes will back to #00000000
+                    lastClickedView?.setBackgroundColor(Color.parseColor("#00000000"))
+                    // Set the background become green when user clicked it
+                    it.setBackgroundColor(Color.parseColor("#0BDD20"))
+                    // Update the last clicked view
+                    lastClickedView = it
+
                     onCategoryClick(category)
                 }
+
             }
         }
     }
