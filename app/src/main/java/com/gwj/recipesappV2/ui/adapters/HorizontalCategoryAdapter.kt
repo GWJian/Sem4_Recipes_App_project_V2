@@ -14,6 +14,7 @@ class HorizontalCategoryAdapter(
     private var categories: List<Category>,
     private var onCategoryClick: (Category) -> Unit,
 ) : RecyclerView.Adapter<HorizontalCategoryAdapter.CategoryOnClickViewHolder>() {
+    //track the last button is clicked by user,so can change the color back to #00000000
     private var lastClickedView: View? = null
 
     override fun onCreateViewHolder(
