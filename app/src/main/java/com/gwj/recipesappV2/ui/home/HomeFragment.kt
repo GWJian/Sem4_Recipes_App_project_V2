@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.gwj.recipesappV2.data.model.Meal
 import com.gwj.recipesappV2.databinding.FragmentHomeBinding
 import com.gwj.recipesappV2.ui.adapters.HorizontalCategoryAdapter
@@ -70,9 +71,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             }
         }
 
-        val gridLayoutManager = GridLayoutManager(requireContext(), 2)
+        val staggeredLayoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
         binding.mealsRecyclerView.adapter = adapter2
-        binding.mealsRecyclerView.layoutManager = gridLayoutManager
+        binding.mealsRecyclerView.layoutManager = staggeredLayoutManager
 
         // Initialize SearchView here
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
