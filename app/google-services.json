@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "385482054209",
+    "firebase_url": "https://sem4-recipes-default-rtdb.firebaseio.com",
+    "project_id": "sem4-recipes",
+    "storage_bucket": "sem4-recipes.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:385482054209:android:aedc9f0e796f6b5e7044c0",
+        "android_client_info": {
+          "package_name": "com.gwj.recipesappV2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAikmjJvX5jVFsDfObhuGmYeZsnVOcn7RI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

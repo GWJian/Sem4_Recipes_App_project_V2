@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.gwj.recipesappV2.R
 import com.gwj.recipesappV2.databinding.FragmentRegisterBinding
 import com.gwj.recipesappV2.ui.base.BaseFragment
 import com.gwj.recipesappV2.ui.base.BaseViewModel
 import com.gwj.recipesappV2.ui.register.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
@@ -28,11 +30,29 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
         super.setupUIComponents()
 
         binding.run {
+
+            btnSignUp.setOnClickListener {
+                val email = etEmail.text.toString()
+                val password = etPassword.text.toString()
+                val confirmPassword = etConfirmPassword.text.toString()
+                viewModel.register(email, password, confirmPassword)
+            }
+
             tvSignIn.setOnClickListener {
                 navController.popBackStack()
             }
         }
+    }
 
+    override fun setupViewModelObserver() {
+        super.setupViewModelObserver()
+
+        lifecycleScope.launch {
+            viewModel.success.collect {
+                val action = RegisterFragmentDirections.toHome()
+                navController.navigate(action)
+            }
+        }
     }
 
 
