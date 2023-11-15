@@ -9,6 +9,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.gwj.recipesappV2.core.service.AuthService
 import com.gwj.recipesappV2.core.service.StorageService
+import com.gwj.recipesappV2.data.repo.FavoriteRepo
+import com.gwj.recipesappV2.data.repo.FavoriteRepoRealTimeImpl
 import com.gwj.recipesappV2.data.repo.UserRepo
 import com.gwj.recipesappV2.data.repo.UserRepoImpl
 import dagger.Module
@@ -54,17 +56,17 @@ class AppModule(
 
 
 //================================================= FIREBASE Realtime START ================================================
-//    @Provides
-//    @Singleton
-//    fun provideFirebaseRealtimeRef(): DatabaseReference {
-//        return FirebaseDatabase.getInstance().getReference("favorite")
-//    }
-//
-//    @Provides
-//    @Singleton
-//    fun provideFavoriteRepoRealtime(db:DatabaseReference):favoriteRepo{
-//        return favoriteRepoRealtimeimpl(db)
-//    }
+    @Provides
+    @Singleton
+    fun provideFirebaseRealtimeRef(): DatabaseReference {
+        return FirebaseDatabase.getInstance().getReference("favorite")
+    }
+
+    @Provides
+    @Singleton
+    fun provideFavoriteRepoRealtime(db:DatabaseReference):FavoriteRepo{
+        return FavoriteRepoRealTimeImpl(db)
+    }
 ////================================================= FIREBASE Realtime END ================================================
 
 
