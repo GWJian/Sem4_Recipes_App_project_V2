@@ -13,13 +13,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
-    private val authService : AuthService,
+    private val authService: AuthService,
     private val userRepo: UserRepo
 ) : BaseViewModel() {
 
-    fun register(email: String, pass: String, confirmPass: String) {
+    fun register(name: String, email: String, pass: String, confirmPass: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val error = validate(email, pass, confirmPass)
+            val error = validate(name, email, pass, confirmPass)
 
             if (!error.isNullOrEmpty()) {
                 _error.emit(error)
@@ -30,7 +30,7 @@ class RegisterViewModel @Inject constructor(
                 } else {
                     userRepo.addUser(
                         res.uid,
-                        User(name = "WJ", email = res.email ?: "")
+                        User(name = name, email = res.email ?: "")
                     )
                     _success.emit("Account created successfully")
                 }
@@ -38,15 +38,29 @@ class RegisterViewModel @Inject constructor(
         }
     }
 
-    fun validate(email: String, pass: String, confirmPass: String): String? {
-        return if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+    fun validate(name: String, email: String, pass: String, confirmPass: String): String? {
+        return if (name.isEmpty()) {
+            "Name cannot be empty"
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             "Invalid email format"
         } else if (pass.length <= 5) {
-            "Password must more than 5"
+            "Password must be more than 5 characters"
         } else if (pass != confirmPass) {
-            "Password not match"
+            "Passwords do not match"
         } else {
             null
         }
     }
+
+//    fun validate(name: String, email: String, pass: String, confirmPass: String): String? {
+//        return if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+//            "Invalid email format"
+//        } else if (pass.length <= 5) {
+//            "Password must more than 5"
+//        } else if (pass != confirmPass) {
+//            "Password not match"
+//        } else {
+//            null
+//        }
+//    }
 }

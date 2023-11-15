@@ -32,10 +32,11 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
         binding.run {
 
             btnSignUp.setOnClickListener {
+                val name = etName.text.toString()
                 val email = etEmail.text.toString()
                 val password = etPassword.text.toString()
                 val confirmPassword = etConfirmPassword.text.toString()
-                viewModel.register(email, password, confirmPassword)
+                viewModel.register(name,email, password, confirmPassword)
             }
 
             tvSignIn.setOnClickListener {
@@ -49,7 +50,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
 
         lifecycleScope.launch {
             viewModel.success.collect {
-                val action = RegisterFragmentDirections.toHome()
+                val action = RegisterFragmentDirections.toLogin()
                 navController.navigate(action)
             }
         }

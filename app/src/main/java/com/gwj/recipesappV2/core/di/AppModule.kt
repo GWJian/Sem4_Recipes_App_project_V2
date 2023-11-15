@@ -3,6 +3,8 @@ package com.gwj.recipesappV2.core.di
 import android.content.Context
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.gwj.recipesappV2.core.service.AuthService
@@ -27,8 +29,6 @@ class AppModule(
     fun provideAuth(@ApplicationContext context: Context):AuthService{
         return AuthService()
     }
-
-
 //========================================== StoreService Start =================================================
     @Provides
     @Singleton
@@ -59,13 +59,13 @@ class AppModule(
 //    fun provideFirebaseRealtimeRef(): DatabaseReference {
 //        return FirebaseDatabase.getInstance().getReference("favorite")
 //    }
-
+//
 //    @Provides
 //    @Singleton
 //    fun provideFavoriteRepoRealtime(db:DatabaseReference):favoriteRepo{
 //        return favoriteRepoRealtimeimpl(db)
 //    }
-//================================================= FIREBASE Realtime END ================================================
+////================================================= FIREBASE Realtime END ================================================
 
 
 
