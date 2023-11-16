@@ -20,12 +20,12 @@ abstract class BaseFragment<T: ViewBinding> :Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = NavHostFragment.findNavController(this)
-        onFramentResult()
+        onFragmentResult()
         setupUIComponents()
         setupViewModelObserver()
     }
 
-    protected open fun onFramentResult() {}
+    protected open fun onFragmentResult() {}
 
     protected open fun setupViewModelObserver(){
         lifecycleScope.launch {

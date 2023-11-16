@@ -67,7 +67,7 @@ class AppModule(
     fun provideFavoriteRepoRealtime(db:DatabaseReference):FavoriteRepo{
         return FavoriteRepoRealTimeImpl(db)
     }
-////================================================= FIREBASE Realtime END ================================================
+//================================================= FIREBASE Realtime END ================================================
 
 
 
