@@ -53,7 +53,7 @@
             app:startIconDrawable="@drawable/ic_person">
 
             <EditText
-                android:id="@+id/regName"
+                android:id="@+id/etName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -79,7 +79,7 @@
             app:startIconDrawable="@drawable/ic_email">
 
             <EditText
-                android:id="@+id/regEmail"
+                android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -103,7 +103,7 @@
             app:startIconDrawable="@drawable/ic_lock">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/regPassword"
+                android:id="@+id/etPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Enter Password" />
@@ -128,14 +128,14 @@
             app:startIconDrawable="@drawable/ic_lock">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/regConfirmPassword"
+            android:id="@+id/etConfirmPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSignIp"
+        android:id="@+id/btnSignUp"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="Sign Up"

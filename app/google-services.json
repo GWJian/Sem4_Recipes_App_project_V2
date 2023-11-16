@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "741149230716",
+    "project_id": "recipes-app-1000f",
+    "storage_bucket": "recipes-app-1000f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:741149230716:android:1ed32c6479a18295782bf9",
+        "android_client_info": {
+          "package_name": "com.gwj.recipesappV2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUjVhTYjwBA6dY-eROH96gEHndMoBuXMo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
