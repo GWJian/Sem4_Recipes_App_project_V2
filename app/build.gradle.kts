@@ -3,7 +3,7 @@ import java.io.FileInputStream
 
 fun getProp(key: String): Any? {
     val propsFile = rootProject.file("local.properties")
-    return if(propsFile.exists()) {
+    return if (propsFile.exists()) {
         val props = Properties()
         props.load(FileInputStream(propsFile))
         props[key]
@@ -38,7 +38,7 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField("String","BASE_URL",getProp("baseUrl").toString())
+            buildConfigField("String", "BASE_URL", getProp("baseUrl").toString())
         }
         release {
             isMinifyEnabled = false
@@ -83,8 +83,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
 
     //retrofit
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
 
     //dagger hilt
@@ -102,4 +102,8 @@ dependencies {
     implementation("com.google.firebase:firebase-database")
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-storage")
+
+    //cardview
+    implementation("androidx.cardview:cardview:1.0.0")
+
 }
