@@ -46,9 +46,9 @@ class FoodDetailsFragment : BaseFragment<FragmentFoodDetailsBinding>() {
 
             cbFavorite.setOnClickListener {
                 lifecycleScope.launch {
-                    //get current logged in user
+                    // Get current logged in user
                     val user = FirebaseAuth.getInstance().currentUser
-                    //Get the user ID of the current user
+                    // Get the user ID of the current user
                     val userId = user?.uid ?: ""
                     //TODO ASK SIR WHY FIRST()?
                     val meal = viewModel.meal.first()
@@ -109,18 +109,18 @@ class FoodDetailsFragment : BaseFragment<FragmentFoodDetailsBinding>() {
                     .load(meal?.strMealThumb)
                     .into(binding.ivFoodImage)
 
-                // Get the current logged-in user
+                // Get current logged in user
                 val user = FirebaseAuth.getInstance().currentUser
                 // Get the user ID of the current user
                 val userId = user?.uid ?: ""
 
-                // Get a DatabaseReference to the favorites node in Firebase Realtime Database
+                // 获取Firebase实时数据库中"favorites"节点
                 val dbRef = FirebaseDatabase.getInstance().getReference("favorites")
                 val repo = FavoriteRepoRealTimeImpl(dbRef)
 
-                // Check if the meal is already marked as favorite
+                // 检查餐点是否已被标记为收藏
                 val isFavorite = repo.isFavorite(userId, meal?.idMeal ?: "")
-                // Set the checkbox state based on whether the meal is marked as favorite
+                // If already favorite, set the checkbox to checked
                 binding.cbFavorite.isChecked = isFavorite
             }
         }
