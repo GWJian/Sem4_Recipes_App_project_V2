@@ -1,7 +1,9 @@
 package com.gwj.recipesappV2.data.model
 
+import java.util.UUID
+
 data class User(
-    val id: String? = null,
+    val id: String? = UUID.randomUUID().toString(), //generate random id to each user
     val name: String,
     val email: String,
     val profilePicUrl: String = "",

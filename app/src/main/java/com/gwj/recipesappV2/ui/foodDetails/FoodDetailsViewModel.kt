@@ -1,11 +1,18 @@
 package com.gwj.recipesappV2.ui.foodDetails
 
 import android.util.Log
+import android.util.LogPrinter
 import androidx.lifecycle.viewModelScope
+import com.gwj.recipesappV2.data.model.FavoriteRecipe
 import com.gwj.recipesappV2.data.model.Meal
+import com.gwj.recipesappV2.data.model.User
+import com.gwj.recipesappV2.data.repo.FavoriteRepo
 import com.gwj.recipesappV2.data.repo.GetAllMealsRepo
+import com.gwj.recipesappV2.data.repo.UserRepo
 import com.gwj.recipesappV2.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -13,7 +20,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FoodDetailsViewModel @Inject constructor(
-    private val Meals: GetAllMealsRepo
+    private val Meals: GetAllMealsRepo,
 ) : BaseViewModel() {
     private val _meal: MutableStateFlow<Meal?> = MutableStateFlow(null)
     val meal: StateFlow<Meal?> = _meal
