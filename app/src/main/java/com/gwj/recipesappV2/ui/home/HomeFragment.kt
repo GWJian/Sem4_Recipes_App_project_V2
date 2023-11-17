@@ -18,6 +18,7 @@ import com.gwj.recipesappV2.ui.adapters.HorizontalCategoryAdapter
 import com.gwj.recipesappV2.ui.adapters.IngredientsAdapter
 import com.gwj.recipesappV2.ui.adapters.MealAdapter
 import com.gwj.recipesappV2.ui.base.BaseFragment
+import com.gwj.recipesappV2.ui.profile.ProfileViewModel
 import com.gwj.recipesappV2.ui.tabContainer.TabContainerFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -25,6 +26,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override val viewModel: HomeViewModel by viewModels()
+    private val profileViewModel: ProfileViewModel by viewModels()
     private lateinit var adapter: HorizontalCategoryAdapter
     private lateinit var adapter2: MealAdapter
 
@@ -34,12 +36,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
+
     }
 
     override fun setupUIComponents() {
         super.setupUIComponents()
         setupAdapter2()
         setupAdapter()
+
     }
 
     //===================== HorizontalCategoryAdapter Start =====================
@@ -97,7 +101,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun setupViewModelObserver() {
         super.setupViewModelObserver()
-
         //===================== lifecycleScope error Start =====================
         lifecycleScope.launch {
             viewModel.error.collect() {
@@ -105,6 +108,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             }
         }
         //===================== lifecycleScope error End =====================
+
+        //===================== lifecycleScope ShowUserName Start =====================
+        lifecycleScope.launch {
+            profileViewModel.user.collect {
+                binding.tvHello.text = "Hello ${it.name}"
+            }
+        }
 
         //===================== lifecycleScope HorizontalCategoryAdapter Start =====================
         lifecycleScope.launch {

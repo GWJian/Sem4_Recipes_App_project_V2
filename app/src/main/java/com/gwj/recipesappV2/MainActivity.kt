@@ -24,7 +24,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         navController = findNavController(R.id.navHostFragment)
+        // Get the current user from AuthService
         val currentUser = authService.getCurrentUser()
+        // If the user is already logged in, navigate to the TabContainerFragment
         if (currentUser != null) {
             navController.navigate(R.id.tabContainerFragment)
         }
