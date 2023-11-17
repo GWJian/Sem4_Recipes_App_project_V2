@@ -46,7 +46,6 @@
 
                 </androidx.cardview.widget.CardView>
 
-
                 <ImageView
                     android:id="@+id/icEditProfile"
                     android:layout_width="28dp"
@@ -84,6 +83,16 @@
 
         </LinearLayout>
     </FrameLayout>
+
+    <TextView
+        style="@style/TextAppearance.Material3.TitleLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@color/black"
+        android:text="@string/favourite_recipe"
+        android:textAlignment="center"
+        android:textColor="@color/white" />
 
     <LinearLayout
         android:layout_width="match_parent"
