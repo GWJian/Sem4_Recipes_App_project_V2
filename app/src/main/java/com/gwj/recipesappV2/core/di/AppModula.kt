@@ -1,4 +1,4 @@
-package com.gwj.recipesappV2.di
+package com.gwj.recipesappV2.core.di
 
 import com.gwj.recipesappV2.BuildConfig
 import com.gwj.recipesappV2.data.api.RecipeApi
