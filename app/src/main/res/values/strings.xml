@@ -6,4 +6,5 @@
     <string name="add_profile_pic">Add Profile Pic</string>
     <string name="name">Name</string>
     <string name="email">Email</string>
+    <string name="favourite_recipe">Favourite Recipe</string>
 </resources>

@@ -2,23 +2,96 @@ package com.gwj.recipesappV2.ui.profile
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
 import com.gwj.recipesappV2.R
+import com.gwj.recipesappV2.databinding.FragmentProfileBinding
+import com.gwj.recipesappV2.ui.base.BaseFragment
+import com.gwj.recipesappV2.ui.base.BaseViewModel
+import com.gwj.recipesappV2.ui.tabContainer.TabContainerFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class ProfileFragment : Fragment() {
+class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
-    private lateinit var viewModel: ProfileViewModel
+    override val viewModel: ProfileViewModel by viewModels()
+    lateinit var pickMedia: ActivityResultLauncher<PickVisualMediaRequest>
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // Registers a photo picker activity launcher in single-select mode.
+        pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+            // Callback is invoked after the user selects a media item or closes the
+            // photo picker.
+            if (uri != null) {
+                Log.d("PhotoPicker", "Selected URI: $uri")
+                viewModel.updateProfilePic(uri)
+            } else {
+                Log.d("PhotoPicker", "No media selected")
+            }
+        }
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        binding = FragmentProfileBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun setupUIComponents() {
+        super.setupUIComponents()
+
+        binding.ivLogout.setOnClickListener {
+            viewModel.logout()
+        }
+
+        binding.icEditProfile.setOnClickListener {
+            // Launch the photo picker and let the user choose only images.
+            pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+        }
+    }
+
+    override fun setupViewModelObserver() {
+        super.setupViewModelObserver()
+
+        lifecycleScope.launch {
+            viewModel.finish.collect {
+                val action = TabContainerFragmentDirections.toLogin()
+                navController.navigate(action)
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.user.collect {
+                binding.tvEmail.text = it.email
+                binding.tvName.text = it.name
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.profileUri.collect {
+                Glide.with(requireContext())
+                    .load(it)
+                    .placeholder(R.drawable.ic_person)
+                    .into(binding.ivProfile)
+            }
+        }
+
     }
 
 
