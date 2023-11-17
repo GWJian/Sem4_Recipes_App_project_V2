@@ -3,15 +3,13 @@ package com.gwj.recipesappV2.ui.adapters
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class FoodPagerAdapter(
+class FragmentAdapter(
     fragment: Fragment,
-    private val fragments: List<Fragment>,
+    private val tabs: List<Fragment>,
 ) : FragmentStateAdapter(fragment) {
-    override fun getItemCount(): Int {
-        return fragments.size
-    }
+    override fun getItemCount() = tabs.size
 
     override fun createFragment(position: Int): Fragment {
-        return fragments[position]
+        return tabs[position]
     }
 }

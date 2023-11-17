@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/tabContainerFragment">
 
     <!-- Global Action -->
     <action
@@ -14,7 +14,7 @@
 
     <action
         android:id="@+id/toHome"
-        app:destination="@id/homeFragment"
+        app:destination="@id/tabContainerFragment"
         app:popUpTo="@id/loginFragment"
         app:popUpToInclusive="true" />
 
@@ -43,15 +43,6 @@
         tools:layout="@layout/fragment_register" />
 
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.gwj.recipesappV2.ui.home.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home">
-        <action
-            android:id="@+id/action_home_to_foodDetails"
-            app:destination="@id/foodDetailsFragment"></action>
-    </fragment>
-    <fragment
         android:id="@+id/foodDetailsFragment"
         android:name="com.gwj.recipesappV2.ui.foodDetails.FoodDetailsFragment"
         android:label="fragment_food_details"
@@ -59,5 +50,14 @@
         <argument
             android:name="mealName"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/tabContainerFragment"
+        android:name="com.gwj.recipesappV2.ui.tabContainer.TabContainerFragment"
+        android:label="TabContainerFragment"
+        tools:layout="@layout/fragment_tab_container">
+        <action
+            android:id="@+id/action_tabContainer_to_foodDetails"
+            app:destination="@id/foodDetailsFragment" />
     </fragment>
 </navigation>
