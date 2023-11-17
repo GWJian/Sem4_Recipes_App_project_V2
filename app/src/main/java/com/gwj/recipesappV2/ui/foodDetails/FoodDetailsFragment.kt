@@ -46,21 +46,28 @@ class FoodDetailsFragment : BaseFragment<FragmentFoodDetailsBinding>() {
 
             cbFavorite.setOnClickListener {
                 lifecycleScope.launch {
+                    //get current logged in user
                     val user = FirebaseAuth.getInstance().currentUser
+                    //Get the user ID of the current user
                     val userId = user?.uid ?: ""
+                    //TODO ASK SIR WHY FIRST()?
                     val meal = viewModel.meal.first()
 
-                    // Get a DatabaseReference to the favorites node
+                    // 获取到Firebase实时数据库中"favorites"节点的引用
                     val dbRef = FirebaseDatabase.getInstance().getReference("favorites")
 
                     if (cbFavorite.isChecked) {
+                        // 创建一个FavoriteRecipe对象
                         val favoriteRecipe = FavoriteRecipe(
                             idMeal = meal?.idMeal ?: "",
                             strMeal = meal?.strMeal ?: "",
                             id = meal?.idMeal ?: ""
                         )
+                        // 创建一个FavoriteRepoRealTimeImpl对象
                         val repo = FavoriteRepoRealTimeImpl(dbRef)
+                        // 将收藏的菜谱添加到数据库并获取结果
                         val result = repo.AddToFavorite(userId, favoriteRecipe).first()
+                        // 如果结果为true，显示一个Snackbar消息"Added to favorites"，否则显示"Failed to add to favorites"
                         if (result) {
                             Snackbar.make(
                                 binding.root,
@@ -76,8 +83,8 @@ class FoodDetailsFragment : BaseFragment<FragmentFoodDetailsBinding>() {
                         }
                     } else {
                         val repo = FavoriteRepoRealTimeImpl(dbRef)
+                        // 从数据库的收藏夹中删除
                         repo.RemoveFromFavorite(userId, meal?.idMeal ?: "")
-                        // Removed from favorites
                     }
                 }
             }
@@ -94,14 +101,31 @@ class FoodDetailsFragment : BaseFragment<FragmentFoodDetailsBinding>() {
 
         lifecycleScope.launch {
             viewModel.meal.collect { meal ->
+                // Update the UI with the meal data
                 binding.tvFoodName.setText(meal?.strMeal)
                 binding.tvFoodArea.setText(meal?.strArea)
 
                 Glide.with(binding.root)
                     .load(meal?.strMealThumb)
                     .into(binding.ivFoodImage)
+
+                // Get the current logged-in user
+                val user = FirebaseAuth.getInstance().currentUser
+                // Get the user ID of the current user
+                val userId = user?.uid ?: ""
+
+                // Get a DatabaseReference to the favorites node in Firebase Realtime Database
+                val dbRef = FirebaseDatabase.getInstance().getReference("favorites")
+                val repo = FavoriteRepoRealTimeImpl(dbRef)
+
+                // Check if the meal is already marked as favorite
+                val isFavorite = repo.isFavorite(userId, meal?.idMeal ?: "")
+                // Set the checkbox state based on whether the meal is marked as favorite
+                binding.cbFavorite.isChecked = isFavorite
             }
         }
+
+
     }
 
     //============== View Pager 2 Start ==============//
