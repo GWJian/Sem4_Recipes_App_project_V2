@@ -17,10 +17,14 @@ class FavoriteRepoRealTimeImpl(
     }
 
     override suspend fun AddToFavorite(userId: String, recipe: FavoriteRecipe): Flow<Boolean> {
+        //make a boolean flow, if success return true save to database, if fail return false
         return flow {
+            //save the recipe to Realtime database with userId -> recipe.id and the recipe name
             dbRef.child(userId).child(recipe.id).setValue(recipe).await()
+            //if success return true
             emit(true)
         }.catch {
+            //if any error happen return false
             emit(false)
         }
     }
@@ -30,9 +34,33 @@ class FavoriteRepoRealTimeImpl(
     }
 
     override suspend fun RemoveFromFavorite(userId: String, id: String) {
+        //删除数据库中的数据,通过userId和recipe.id来删除
         dbRef.child(userId).child(id).removeValue().await()
     }
 
+    override suspend fun isFavorite(userId: String, id: String): Boolean {
+        // Get a reference to the specific recipe in the database
+        val recipeRef = dbRef.child(userId).child(id)
 
+        // Try to get the value at the reference
+        val snapshot = recipeRef.get().await()
 
+        // If the snapshot exists, the recipe is marked as favorite
+        return snapshot.exists()
+    }
 }
+
+// This is child
+//dbRef (root)
+//|
+//|--- userId (child of root)
+//|    |
+//|    |--- recipe.id (child of userId)
+//|    |    |
+//|    |    |--- recipe (value at this node)
+//|
+//|--- anotherUserId (another child of root)
+//|
+//|--- anotherRecipe.id (child of anotherUserId)
+//|
+//|--- anotherRecipe (value at this node)

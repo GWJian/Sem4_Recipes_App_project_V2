@@ -15,4 +15,6 @@ interface FavoriteRepo {
 
     suspend fun RemoveFromFavorite(userId: String, id: String)
 
+    suspend fun isFavorite(userId: String, id: String): Boolean
+
 }
