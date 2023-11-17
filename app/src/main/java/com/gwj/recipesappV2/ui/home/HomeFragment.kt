@@ -18,6 +18,7 @@ import com.gwj.recipesappV2.ui.adapters.HorizontalCategoryAdapter
 import com.gwj.recipesappV2.ui.adapters.IngredientsAdapter
 import com.gwj.recipesappV2.ui.adapters.MealAdapter
 import com.gwj.recipesappV2.ui.base.BaseFragment
+import com.gwj.recipesappV2.ui.tabContainer.TabContainerFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -66,7 +67,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         adapter2 = MealAdapter(emptyList())
         adapter2.listener = object : MealAdapter.Listener {
             override fun onClick(meal: Meal) {
-                val action = HomeFragmentDirections.actionHomeToFoodDetails(meal.strMeal)
+//                val action = HomeFragmentDirections.actionHomeToFoodDetails(meal.strMeal)
+                val action =
+                    TabContainerFragmentDirections.actionTabContainerToFoodDetails(meal.strMeal)
                 navController.navigate(action)
             }
         }

@@ -10,12 +10,11 @@ import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
 import com.gwj.recipesappV2.databinding.FragmentFoodDetailsBinding
-import com.gwj.recipesappV2.ui.adapters.FoodPagerAdapter
+import com.gwj.recipesappV2.ui.adapters.FragmentAdapter
 import com.gwj.recipesappV2.ui.base.BaseFragment
 import com.gwj.recipesappV2.ui.foodDetails.Ingredents.IngredientsFragment
 import com.gwj.recipesappV2.ui.foodDetails.Instructions.InstructionsFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -64,7 +63,7 @@ class FoodDetailsFragment : BaseFragment<FragmentFoodDetailsBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.vpFoodContainer.adapter = FoodPagerAdapter(
+        binding.vpFoodContainer.adapter = FragmentAdapter(
             this,
             listOf(IngredientsFragment(), InstructionsFragment())
         )
