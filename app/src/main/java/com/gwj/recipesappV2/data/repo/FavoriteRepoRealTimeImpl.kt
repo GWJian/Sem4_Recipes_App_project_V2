@@ -1,10 +1,15 @@
 package com.gwj.recipesappV2.data.repo
 
 import android.util.Log
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.getValue
 import com.gwj.recipesappV2.data.model.FavoriteRecipe
+import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
@@ -12,8 +17,30 @@ import kotlinx.coroutines.tasks.await
 class FavoriteRepoRealTimeImpl(
     private val dbRef: DatabaseReference
 ) : FavoriteRepo {
-    override fun getALlFavoriteRecipe(): Flow<List<FavoriteRecipe>> {
-        TODO("Not yet implemented")
+//    override fun getALlFavoriteRecipe(): Flow<List<FavoriteRecipe>> {
+//        TODO("Not yet implemented")
+//    }
+
+    override fun getALlFavoriteRecipe() = callbackFlow {
+
+        val listener = object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val recipe = mutableListOf<FavoriteRecipe>()
+                for (recipeSnapshot in snapshot.children) {
+                    recipeSnapshot.getValue<FavoriteRecipe>()?.let {
+                        recipe.add(it.copy(idMeal = recipeSnapshot.key ?: ""))
+                    }
+                }
+                trySend(recipe)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                throw error.toException()
+            }
+        }
+
+        dbRef.addValueEventListener(listener)
+        awaitClose()
     }
 
     override suspend fun AddToFavorite(userId: String, recipe: FavoriteRecipe): Flow<Boolean> {
