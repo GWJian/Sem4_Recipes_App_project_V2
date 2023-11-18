@@ -3,10 +3,12 @@ package com.gwj.recipesappV2.ui.foodDetails
 import android.util.Log
 import android.util.LogPrinter
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.database.FirebaseDatabase
 import com.gwj.recipesappV2.data.model.FavoriteRecipe
 import com.gwj.recipesappV2.data.model.Meal
 import com.gwj.recipesappV2.data.model.User
 import com.gwj.recipesappV2.data.repo.FavoriteRepo
+import com.gwj.recipesappV2.data.repo.FavoriteRepoRealTimeImpl
 import com.gwj.recipesappV2.data.repo.GetAllMealsRepo
 import com.gwj.recipesappV2.data.repo.UserRepo
 import com.gwj.recipesappV2.ui.base.BaseViewModel
@@ -15,6 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -33,6 +36,11 @@ class FoodDetailsViewModel @Inject constructor(
     private val _instructions: MutableStateFlow<String> = MutableStateFlow("")
     val instructions: StateFlow<String> = _instructions
 
+    private val _favoriteStatus = MutableStateFlow<String> ("")
+    val favoriteStatusFlow: StateFlow<String> = _favoriteStatus
+
+    private val _isFavorite = MutableStateFlow<Boolean>(false)
+    val isFavorite: StateFlow<Boolean> = _isFavorite
 
     fun getMealByName(name: String) {
         viewModelScope.launch {
@@ -72,53 +80,37 @@ class FoodDetailsViewModel @Inject constructor(
             }
         }
     }
+
+    suspend fun toggleFavorite(userId: String, meal: Meal?, isChecked: Boolean) {
+        // 获取到Firebase实时数据库中"favorites"节点
+        val dbRef = FirebaseDatabase.getInstance().getReference("favorites")
+        // 创建一个FavoriteRepoRealTimeImpl对象
+        val repo = FavoriteRepoRealTimeImpl(dbRef)
+
+        if (isChecked) {
+            // if the checkbox is checked, add the recipe to the favorites
+            val favoriteRecipe = FavoriteRecipe(
+                idMeal = meal?.idMeal ?: "",
+                strMeal = meal?.strMeal ?: "",
+                id = meal?.idMeal ?: ""
+            )
+            // 尝试将菜谱添加到数据库的收藏夹中，并获取结果
+            val result = repo.AddToFavorite(userId, favoriteRecipe).first()
+            _favoriteStatus.value = if (result) "Added to favorites" else "Failed to add to favorites"
+        } else {
+            repo.RemoveFromFavorite(userId, meal?.idMeal ?: "")
+            _favoriteStatus.value = "Removed from favorites"
+        }
+    }
+
+    suspend fun checkIsFavorite(userId: String, idMeal: String?) {
+        // 获取到Firebase实时数据库中"favorites"节点
+        val dbRef = FirebaseDatabase.getInstance().getReference("favorites")
+        // 创建一个FavoriteRepoRealTimeImpl对象
+        val repo = FavoriteRepoRealTimeImpl(dbRef)
+        // 检查菜谱是否在数据库中被标记为收藏
+        val isFavorite = repo.isFavorite(userId, idMeal ?: "")
+        // if the recipe is marked as favorite, checkbox is checked
+        _isFavorite.value = isFavorite
+    }
 }
-
-
-//private val _ingredients: MutableStateFlow<List<String>> = MutableStateFlow(emptyList())
-//val ingredients: StateFlow<List<String>> = _ingredients
-//
-//private val _image: MutableStateFlow<String?> = MutableStateFlow(null)
-//val image: StateFlow<String?> = _image
-//
-//private val _measurements: MutableStateFlow<List<String>> = MutableStateFlow(emptyList())
-//val measurements: StateFlow<List<String>> = _measurements
-
-
-//fun getMealByName(name: String) {
-//    viewModelScope.launch {
-//        try {
-//            Meals.getMealByName(name).let {
-//                _meal.value = it
-//                _image.value = it?.strMealThumb
-//                _ingredients.value = listOf(
-//                    it?.strIngredient1,
-//                    it?.strIngredient2,
-//                    it?.strIngredient3,
-//                    it?.strIngredient4,
-//                    it?.strIngredient5,
-//                    it?.strIngredient6,
-//                    it?.strIngredient7,
-//                    it?.strIngredient8,
-//                    it?.strIngredient9,
-//                    it?.strIngredient10,
-//                    it?.strIngredient11,
-//                    it?.strIngredient12,
-//                    it?.strIngredient13,
-//                    it?.strIngredient14,
-//                    it?.strIngredient15,
-//                    it?.strIngredient16,
-//                    it?.strIngredient17,
-//                    it?.strIngredient18,
-//                    it?.strIngredient19,
-//                    it?.strIngredient20,
-//                ).filter { it.isNotEmpty() }
-//            }
-//        } catch (e: Exception) {
-//            //Log.d("debugging_FoodDetailsViewModel", "getMealByName_error: $e")
-//            //throw e
-//            _error.emit(e.message ?: "Meals Something went wrong")
-//        }
-//    }
-//}
-//}

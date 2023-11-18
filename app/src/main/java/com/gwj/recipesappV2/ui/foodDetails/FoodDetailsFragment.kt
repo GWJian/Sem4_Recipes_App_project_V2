@@ -46,49 +46,16 @@ class FoodDetailsFragment : BaseFragment<FragmentFoodDetailsBinding>() {
 
             cbFavorite.setOnClickListener {
                 lifecycleScope.launch {
-                    // Get current logged in user
+                    //get the current logged in user
                     val user = FirebaseAuth.getInstance().currentUser
-                    // Get the user ID of the current user
+                    //get the current user id
                     val userId = user?.uid ?: ""
-                    //TODO ASK SIR WHY FIRST()?
+                    //get the current meal
                     val meal = viewModel.meal.first()
-
-                    // 获取到Firebase实时数据库中"favorites"节点的引用
-                    val dbRef = FirebaseDatabase.getInstance().getReference("favorites")
-
-                    if (cbFavorite.isChecked) {
-                        // 创建一个FavoriteRecipe对象
-                        val favoriteRecipe = FavoriteRecipe(
-                            idMeal = meal?.idMeal ?: "",
-                            strMeal = meal?.strMeal ?: "",
-                            id = meal?.idMeal ?: ""
-                        )
-                        // 创建一个FavoriteRepoRealTimeImpl对象
-                        val repo = FavoriteRepoRealTimeImpl(dbRef)
-                        // 将收藏的菜谱添加到数据库并获取结果
-                        val result = repo.AddToFavorite(userId, favoriteRecipe).first()
-                        // 如果结果为true，显示一个Snackbar消息"Added to favorites"，否则显示"Failed to add to favorites"
-                        if (result) {
-                            Snackbar.make(
-                                binding.root,
-                                "Added to favorites",
-                                Snackbar.LENGTH_SHORT
-                            ).show()
-                        } else {
-                            Snackbar.make(
-                                binding.root,
-                                "Failed to add to favorites",
-                                Snackbar.LENGTH_SHORT
-                            ).show()
-                        }
-                    } else {
-                        val repo = FavoriteRepoRealTimeImpl(dbRef)
-                        // 从数据库的收藏夹中删除
-                        repo.RemoveFromFavorite(userId, meal?.idMeal ?: "")
-                    }
+                    // 根据复选框的状态切换餐点的收藏状态
+                    viewModel.toggleFavorite(userId, meal, cbFavorite.isChecked)
                 }
             }
-
 
             goBack.setOnClickListener {
                 navController.popBackStack()
@@ -109,23 +76,29 @@ class FoodDetailsFragment : BaseFragment<FragmentFoodDetailsBinding>() {
                     .load(meal?.strMealThumb)
                     .into(binding.ivFoodImage)
 
-                // Get current logged in user
                 val user = FirebaseAuth.getInstance().currentUser
-                // Get the user ID of the current user
                 val userId = user?.uid ?: ""
+                viewModel.checkIsFavorite(userId, meal?.idMeal ?: "")
+            }
+        }
 
-                // 获取Firebase实时数据库中"favorites"节点
-                val dbRef = FirebaseDatabase.getInstance().getReference("favorites")
-                val repo = FavoriteRepoRealTimeImpl(dbRef)
-
-                // 检查餐点是否已被标记为收藏
-                val isFavorite = repo.isFavorite(userId, meal?.idMeal ?: "")
-                // If already favorite, set the checkbox to checked
+        lifecycleScope.launch {
+            // 收集来自ViewModel的isFavorite StateFlow
+            viewModel.isFavorite.collect { isFavorite ->
+                // 根据收藏状态更新复选框的状态
                 binding.cbFavorite.isChecked = isFavorite
             }
         }
 
-
+        lifecycleScope.launch {
+            // 收集来自ViewModel的favoriteStatusFlow StateFlow
+            viewModel.favoriteStatusFlow.collect { status ->
+                // 如果状态不为空，则显示带有状态消息的Snackbar
+                if (status.isNotEmpty()) {
+                    Snackbar.make(binding.root, status, Snackbar.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
     //============== View Pager 2 Start ==============//
