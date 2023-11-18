@@ -1,5 +1,6 @@
 package com.gwj.recipesappV2.ui.adapters
 
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -11,19 +12,25 @@ class FavouriteRecipeAdatper(
 ) : RecyclerView.Adapter<FavouriteRecipeAdatper.FavouriteRecipeViewHolder>() {
     var listener: Listener? = null
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): FavouriteRecipeViewHolder {
-        TODO("Not yet implemented")
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavouriteRecipeViewHolder {
+        val binding = LayoutFavouriteRecipeBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return FavouriteRecipeViewHolder(binding)
     }
 
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
-    }
+    override fun getItemCount() = recipes.size
 
     override fun onBindViewHolder(holder: FavouriteRecipeViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        val favouriteItem = recipes[position]
+        holder.bind(favouriteItem)
+    }
+
+    fun setFavourite(recipes:List<FavoriteRecipe>){
+        this.recipes = recipes
+        notifyDataSetChanged()
     }
 
     inner class FavouriteRecipeViewHolder(
