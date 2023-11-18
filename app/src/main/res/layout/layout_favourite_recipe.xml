@@ -6,7 +6,7 @@
     android:layout_margin="8dp">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/mcIngredients"
+        android:id="@+id/mcMeals"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="#3CF1EBF1"
@@ -31,13 +31,13 @@
                 android:padding="15dp">
 
                 <ImageView
-                    android:id="@+id/ivIngredientImage"
+                    android:id="@+id/ivMealImage"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:src="@drawable/ic_image" />
 
                 <TextView
-                    android:id="@+id/tvIngredientsName"
+                    android:id="@+id/tvMealName"
                     style="@style/TextAppearance.Material3.BodyLarge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -4,7 +4,8 @@ package com.gwj.recipesappV2.data.model
 data class FavoriteRecipe(
     val idMeal: String,
     val strMeal: String,
-    val id:String = ""
+    val id:String = "",
+    val strMealThumb: String = "",
 )
 //{
 //    fun toHashMap(): HashMap<String, Any> {

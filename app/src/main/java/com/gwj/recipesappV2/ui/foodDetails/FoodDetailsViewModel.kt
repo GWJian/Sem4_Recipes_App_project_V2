@@ -92,7 +92,8 @@ class FoodDetailsViewModel @Inject constructor(
             val favoriteRecipe = FavoriteRecipe(
                 idMeal = meal?.idMeal ?: "",
                 strMeal = meal?.strMeal ?: "",
-                id = meal?.idMeal ?: ""
+                id = meal?.idMeal ?: "",
+                strMealThumb = meal?.strMealThumb ?: "",
             )
             // 尝试将菜谱添加到数据库的收藏夹中，并获取结果
             val result = repo.AddToFavorite(userId, favoriteRecipe).first()
