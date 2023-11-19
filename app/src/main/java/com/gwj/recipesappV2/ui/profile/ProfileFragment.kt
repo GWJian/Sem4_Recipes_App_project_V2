@@ -13,9 +13,11 @@ import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.gwj.recipesappV2.R
 import com.gwj.recipesappV2.databinding.FragmentProfileBinding
+import com.gwj.recipesappV2.ui.adapters.FavouriteRecipeAdatper
 import com.gwj.recipesappV2.ui.base.BaseFragment
 import com.gwj.recipesappV2.ui.base.BaseViewModel
 import com.gwj.recipesappV2.ui.tabContainer.TabContainerFragmentDirections
@@ -27,10 +29,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
     override val viewModel: ProfileViewModel by viewModels()
     lateinit var pickMedia: ActivityResultLauncher<PickVisualMediaRequest>
+    private lateinit var favouriteRecipeAdatper: FavouriteRecipeAdatper
 
+    //============================ Personal Image Start ============================
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         // Registers a photo picker activity launcher in single-select mode.
         pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
             // Callback is invoked after the user selects a media item or closes the
@@ -43,6 +46,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
             }
         }
     }
+    //============================ Personal Image End ============================
 
 
     override fun onCreateView(
@@ -55,6 +59,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
     override fun setupUIComponents() {
         super.setupUIComponents()
+        favouriteRecipeAdatper()
 
         binding.ivLogout.setOnClickListener {
             viewModel.logout()
@@ -92,6 +97,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
             }
         }
 
+    }
+
+    private fun favouriteRecipeAdatper() {
+        favouriteRecipeAdatper = FavouriteRecipeAdatper(emptyList())
+
+        val layoutManager = LinearLayoutManager(requireContext())
+        binding.rvRecipe.adapter = favouriteRecipeAdatper
+        binding.rvRecipe.layoutManager = layoutManager
     }
 
 

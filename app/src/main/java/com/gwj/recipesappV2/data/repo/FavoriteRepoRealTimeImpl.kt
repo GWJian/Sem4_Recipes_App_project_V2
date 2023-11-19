@@ -17,18 +17,14 @@ import kotlinx.coroutines.tasks.await
 class FavoriteRepoRealTimeImpl(
     private val dbRef: DatabaseReference
 ) : FavoriteRepo {
-//    override fun getALlFavoriteRecipe(): Flow<List<FavoriteRecipe>> {
-//        TODO("Not yet implemented")
-//    }
-
-    override fun getALlFavoriteRecipe() = callbackFlow {
-
+    override fun getAllFavoriteRecipe() = callbackFlow {
         val listener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val recipe = mutableListOf<FavoriteRecipe>()
                 for (recipeSnapshot in snapshot.children) {
                     recipeSnapshot.getValue<FavoriteRecipe>()?.let {
                         recipe.add(it.copy(idMeal = recipeSnapshot.key ?: ""))
+                        Log.d("debugging_FavoriteRepoRealTimeImpl", "getAllFavoriteRecipe(): $it")
                     }
                 }
                 trySend(recipe)
