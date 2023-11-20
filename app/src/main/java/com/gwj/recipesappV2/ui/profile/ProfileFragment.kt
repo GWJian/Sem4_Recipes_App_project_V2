@@ -61,14 +61,19 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         super.setupUIComponents()
         favouriteRecipeAdatper()
 
+        //================== Logout Btn Start ============================
         binding.ivLogout.setOnClickListener {
             viewModel.logout()
         }
+        //================== Logout Btn End ============================
 
+        //================== Choose Img Btn Start ======================
         binding.icEditProfile.setOnClickListener {
             // Launch the photo picker and let the user choose only images.
             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
+        //================== Choose Img Btn Start ======================
+
     }
 
     override fun setupViewModelObserver() {
