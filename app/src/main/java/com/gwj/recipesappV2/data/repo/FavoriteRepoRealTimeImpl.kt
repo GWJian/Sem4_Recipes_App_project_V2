@@ -23,8 +23,7 @@ class FavoriteRepoRealTimeImpl(
                 val recipe = mutableListOf<FavoriteRecipe>()
                 for (recipeSnapshot in snapshot.children) {
                     recipeSnapshot.getValue<FavoriteRecipe>()?.let {
-                        recipe.add(it.copy(idMeal = recipeSnapshot.key ?: ""))
-                        Log.d("debugging_FavoriteRepoRealTimeImpl", "getAllFavoriteRecipe(): $it")
+                        recipe.add(it.copy(id = recipeSnapshot.key ?: ""))
                     }
                 }
                 trySend(recipe)

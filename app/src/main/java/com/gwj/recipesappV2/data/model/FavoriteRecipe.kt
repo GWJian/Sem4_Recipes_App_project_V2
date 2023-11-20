@@ -2,9 +2,9 @@ package com.gwj.recipesappV2.data.model
 
 
 data class FavoriteRecipe(
+    val id: String = "",
     val idMeal: String,
     val strMeal: String,
-    val id:String = "",
     val strMealThumb: String = "",
 )
 //{

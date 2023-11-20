@@ -86,6 +86,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
             }
         }
 
+        //=============== Load Profile Data Start =====================
         lifecycleScope.launch {
             viewModel.user.collect {
                 binding.tvEmail.text = it.email
@@ -101,6 +102,15 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                     .into(binding.ivProfile)
             }
         }
+        //=============== Load Profile Data End =====================
+
+        //===================== Favourite Adapter Start =======================
+        lifecycleScope.launch {
+           viewModel.favourite.collect{
+               favouriteRecipeAdatper.setFavourite(it)
+           }
+        }
+        //===================== Favourite Adapter End =======================
 
     }
 
