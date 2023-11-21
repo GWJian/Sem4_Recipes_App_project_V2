@@ -1,14 +1,18 @@
 package com.gwj.recipesappV2
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.gwj.recipesappV2.core.service.AuthService
+import com.gwj.recipesappV2.core.util.NetworkManager
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -18,6 +22,8 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var authService: AuthService
     lateinit var navController: NavController
+    private lateinit var dialog: AlertDialog
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +36,23 @@ class MainActivity : AppCompatActivity() {
         if (currentUser != null) {
             navController.navigate(R.id.tabContainerFragment)
         }
+
+
+        dialog = MaterialAlertDialogBuilder(this, R.style.MaterialAlertDialog_Rounded)
+            .setView(R.layout.network_dialog)
+            .setCancelable(false)
+            .create()
+
+        val networkManager = NetworkManager(this)
+        networkManager.observe(this) {
+            if (!it) {
+                if (!dialog.isShowing) dialog.show()
+            } else {
+                if (dialog.isShowing) dialog.hide()
+            }
+        }
+
+        window.statusBarColor = Color.BLACK;
 
 //        val db = Firebase.firestore
 //
