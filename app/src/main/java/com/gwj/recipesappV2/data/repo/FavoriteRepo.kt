@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface FavoriteRepo {
 
-    fun getALlFavoriteRecipe(): Flow<List<FavoriteRecipe>>
+    fun getAllFavoriteRecipe(userId: String): Flow<List<FavoriteRecipe>>
 
     //we use Boolean because we want to know it is success to set into database or not
     //we set userId because we want to know which user is adding the recipe,so only the user can see it in their favorite list

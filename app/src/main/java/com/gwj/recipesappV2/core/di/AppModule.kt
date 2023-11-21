@@ -59,7 +59,7 @@ class AppModule(
     @Provides
     @Singleton
     fun provideFirebaseRealtimeRef(): DatabaseReference {
-        return FirebaseDatabase.getInstance().getReference("favorite")
+        return FirebaseDatabase.getInstance().getReference("favorites")
     }
 
     @Provides

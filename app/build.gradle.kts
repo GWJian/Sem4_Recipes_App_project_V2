@@ -104,6 +104,6 @@ dependencies {
     implementation("com.google.firebase:firebase-storage")
 
     //cardview
-    implementation("androidx.cardview:cardview:1.0.0")
+    //implementation("androidx.cardview:cardview:1.0.0")
 
 }

@@ -115,6 +115,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 binding.tvHello.text = "Hello ${it.name}"
             }
         }
+        //===================== lifecycleScope ShowUserName End =====================
 
         //===================== lifecycleScope HorizontalCategoryAdapter Start =====================
         lifecycleScope.launch {

@@ -53,7 +53,6 @@ class FavouriteRecipeAdatper(
     }
 
     interface Listener {
-
         fun onClick(recipe: FavoriteRecipe)
     }
 

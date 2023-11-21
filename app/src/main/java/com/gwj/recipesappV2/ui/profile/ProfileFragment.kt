@@ -13,9 +13,11 @@ import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.gwj.recipesappV2.R
 import com.gwj.recipesappV2.databinding.FragmentProfileBinding
+import com.gwj.recipesappV2.ui.adapters.FavouriteRecipeAdatper
 import com.gwj.recipesappV2.ui.base.BaseFragment
 import com.gwj.recipesappV2.ui.base.BaseViewModel
 import com.gwj.recipesappV2.ui.tabContainer.TabContainerFragmentDirections
@@ -27,10 +29,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
     override val viewModel: ProfileViewModel by viewModels()
     lateinit var pickMedia: ActivityResultLauncher<PickVisualMediaRequest>
+    private lateinit var favouriteRecipeAdatper: FavouriteRecipeAdatper
 
+    //============================ Personal Image Start ============================
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         // Registers a photo picker activity launcher in single-select mode.
         pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
             // Callback is invoked after the user selects a media item or closes the
@@ -43,6 +46,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
             }
         }
     }
+    //============================ Personal Image End ============================
 
 
     override fun onCreateView(
@@ -55,15 +59,21 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
     override fun setupUIComponents() {
         super.setupUIComponents()
+        favouriteRecipeAdatper()
 
+        //================== Logout Btn Start ============================
         binding.ivLogout.setOnClickListener {
             viewModel.logout()
         }
+        //================== Logout Btn End ============================
 
+        //================== Choose Img Btn Start ======================
         binding.icEditProfile.setOnClickListener {
             // Launch the photo picker and let the user choose only images.
             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
+        //================== Choose Img Btn Start ======================
+
     }
 
     override fun setupViewModelObserver() {
@@ -76,6 +86,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
             }
         }
 
+        //=============== Load Profile Data Start =====================
         lifecycleScope.launch {
             viewModel.user.collect {
                 binding.tvEmail.text = it.email
@@ -91,8 +102,27 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
                     .into(binding.ivProfile)
             }
         }
+        //=============== Load Profile Data End =====================
+
+        //===================== Show Favourite Adapter Start =======================
+        lifecycleScope.launch {
+           viewModel.favourite.collect{
+               favouriteRecipeAdatper.setFavourite(it)
+           }
+        }
+        //===================== Show Favourite Adapter End =======================
 
     }
+
+    //===================== Favourite Adapter Start =======================
+    private fun favouriteRecipeAdatper() {
+        favouriteRecipeAdatper = FavouriteRecipeAdatper(emptyList())
+
+        val layoutManager = LinearLayoutManager(requireContext())
+        binding.rvRecipe.adapter = favouriteRecipeAdatper
+        binding.rvRecipe.layoutManager = layoutManager
+    }
+    //===================== Favourite Adapter End =======================
 
 
 }

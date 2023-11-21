@@ -66,6 +66,7 @@ class FoodDetailsFragment : BaseFragment<FragmentFoodDetailsBinding>() {
     override fun setupViewModelObserver() {
         super.setupViewModelObserver()
 
+        //============================ show the meal Start ============================//
         lifecycleScope.launch {
             viewModel.meal.collect { meal ->
                 // Update the UI with the meal data
@@ -81,7 +82,9 @@ class FoodDetailsFragment : BaseFragment<FragmentFoodDetailsBinding>() {
                 viewModel.checkIsFavorite(userId, meal?.idMeal ?: "")
             }
         }
+        //============================ show the meal End ============================//
 
+        //============================ check checkbox Is Favorite or not Start ============================//
         lifecycleScope.launch {
             // 收集来自ViewModel的isFavorite StateFlow
             viewModel.isFavorite.collect { isFavorite ->
@@ -89,7 +92,10 @@ class FoodDetailsFragment : BaseFragment<FragmentFoodDetailsBinding>() {
                 binding.cbFavorite.isChecked = isFavorite
             }
         }
+        //============================ check checkbox Is Favorite or not End ============================//
 
+
+        //============================ check toggleFavorite Start ============================//
         lifecycleScope.launch {
             // 收集来自ViewModel的favoriteStatusFlow StateFlow
             viewModel.favoriteStatusFlow.collect { status ->
@@ -99,6 +105,8 @@ class FoodDetailsFragment : BaseFragment<FragmentFoodDetailsBinding>() {
                 }
             }
         }
+        //============================ check toggleFavorite End ============================//
+
     }
 
     //============== View Pager 2 Start ==============//
