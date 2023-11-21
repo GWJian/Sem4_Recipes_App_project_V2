@@ -3,48 +3,91 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp">
+    android:layout_margin="3dp">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/mcIngredientsCV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#3CF1EBF1"
-        app:cardCornerRadius="18dp"
-        app:strokeColor="@color/white"
-        app:strokeWidth="2dp">
-
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/mcIngredientsCV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="15dp">
+            android:backgroundTint="#3CF1EBF1"
+            app:cardCornerRadius="18dp"
+            app:strokeColor="@color/white"
+            app:strokeWidth="2dp">
 
-            <ImageView
-                android:id="@+id/ivIngredients"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/ic_image" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="15dp">
+
+                <ImageView
+                    android:id="@+id/ivIngredients"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_image" />
+
+                <TextView
+                    android:id="@+id/tvIngredientsName"
+                    style="@style/TextAppearance.Material3.BodyLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Ingredient Name" />
+
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/tvIngredientsName"
-                style="@style/TextAppearance.Material3.BodyLarge"
+                android:id="@+id/tvIngredientMeasure"
+                style="@style/ShapeAppearance.Material3.Corner.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Ingredient Name" />
+                android:layout_gravity="center|end"
+                android:layout_marginEnd="10dp"
+                android:text="Measure" />
 
-        </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-        <TextView
-            android:id="@+id/tvIngredientMeasure"
-            style="@style/ShapeAppearance.Material3.Corner.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|end"
-            android:layout_marginEnd="10dp"
-            android:text="Measure" />
+<!--    <LinearLayout-->
+<!--        android:id="@+id/mcIngredientsCV"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:orientation="vertical">-->
 
-    </com.google.android.material.card.MaterialCardView>
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:padding="15dp">-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/ivIngredients"-->
+<!--                android:layout_width="50dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:src="@drawable/ic_image" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/tvIngredientsName"-->
+<!--                style="@style/TextAppearance.Material3.BodyLarge"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="Ingredient Name" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/tvIngredientMeasure"-->
+<!--                style="@style/ShapeAppearance.Material3.Corner.Medium"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_marginEnd="10dp"-->
+<!--                android:text="Measure" />-->
+<!--        </LinearLayout>-->
+
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="1dp"-->
+<!--            android:background="@color/black" />-->
+<!--    </LinearLayout>-->
 
 </LinearLayout>
