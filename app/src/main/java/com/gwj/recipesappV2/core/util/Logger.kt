@@ -1,4 +1,4 @@
-package com.gwj.recipesappV2.utils
+package com.gwj.recipesappV2.core.util
 
 import android.util.Log
 import okhttp3.Interceptor
@@ -10,14 +10,14 @@ class Logger:Interceptor {
         val request = chain.request()
         val buffer = okio.Buffer()
         request.body?.writeTo(buffer)
-        Log.d("loggingrequest", "request body: ${request.body?.toString()}")
-        Log.d("loggingurl", "${request.method} request to : ${request.url}")
+        //Log.d("loggingrequest", "request body: ${request.body?.toString()}")
+        //Log.d("loggingurl", "${request.method} request to : ${request.url}")
         val startTime = System.currentTimeMillis()
         val response = chain.proceed(request)
         val duration = System.currentTimeMillis() - startTime
         val responseString = response.peekBody(Long.MAX_VALUE)
-        Log.d("loggingresponse", responseString.string())
-        Log.d("loggingtimetook", "It took $duration milliseconds")
+        //Log.d("loggingresponse", responseString.string())
+        //Log.d("loggingtimetook", "It took $duration milliseconds")
         return response
     }
 }

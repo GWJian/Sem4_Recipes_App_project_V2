@@ -2,7 +2,7 @@ package com.gwj.recipesappV2.core.di
 
 import com.gwj.recipesappV2.BuildConfig
 import com.gwj.recipesappV2.data.api.RecipeApi
-import com.gwj.recipesappV2.utils.Logger
+import com.gwj.recipesappV2.core.util.Logger
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
