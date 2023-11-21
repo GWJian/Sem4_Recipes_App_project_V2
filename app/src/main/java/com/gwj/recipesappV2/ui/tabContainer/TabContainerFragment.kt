@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import com.gwj.recipesappV2.R
 import com.gwj.recipesappV2.databinding.FragmentTabContainerBinding
 import com.gwj.recipesappV2.ui.adapters.FragmentAdapter
 import com.gwj.recipesappV2.ui.home.HomeFragment
@@ -37,15 +37,16 @@ class TabContainerFragment : Fragment() {
         TabLayoutMediator(binding.tlTabs, binding.vpContainer) { tab, position ->
             when (position) {
                 0 -> {
-                    tab.text = "Home"
+                    //tab.text = "Home"
+                    tab.setIcon(R.drawable.ic_home)
                 }
 
                 else -> {
-                    tab.text = "Profile"
+                    //tab.text = "Profile"
+                    tab.setIcon(R.drawable.ic_person)
                 }
             }
         }.attach()
-
     }
 
 }

@@ -106,7 +106,8 @@
                 android:id="@+id/etPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter Password" />
+                android:hint="Enter Password"
+                android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
@@ -127,10 +128,11 @@
             android:hint="Retype Password"
             app:startIconDrawable="@drawable/ic_lock">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etConfirmPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etConfirmPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
@@ -152,7 +154,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSignIp">
+        app:layout_constraintTop_toBottomOf="@+id/btnSignUp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -166,7 +168,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="Sign in"
-            android:textColor="@color/yellow" />
+            android:textColor="@color/red" />
     </LinearLayout>
 
 
