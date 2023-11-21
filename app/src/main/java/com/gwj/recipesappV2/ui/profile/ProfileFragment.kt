@@ -1,15 +1,12 @@
 package com.gwj.recipesappV2.ui.profile
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -17,10 +14,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
 import com.gwj.recipesappV2.R
+import com.gwj.recipesappV2.data.model.FavoriteRecipe
+import com.gwj.recipesappV2.data.model.Meal
 import com.gwj.recipesappV2.databinding.FragmentProfileBinding
 import com.gwj.recipesappV2.ui.adapters.FavouriteRecipeAdatper
+import com.gwj.recipesappV2.ui.adapters.MealAdapter
 import com.gwj.recipesappV2.ui.base.BaseFragment
-import com.gwj.recipesappV2.ui.base.BaseViewModel
 import com.gwj.recipesappV2.ui.tabContainer.TabContainerFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -30,7 +29,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
     override val viewModel: ProfileViewModel by viewModels()
     lateinit var pickMedia: ActivityResultLauncher<PickVisualMediaRequest>
-    private lateinit var favouriteRecipeAdatper: FavouriteRecipeAdatper
+    private lateinit var favouriteRecipeAdapter: FavouriteRecipeAdatper
 
     //============================ Personal Image Start ============================
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,7 +59,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
     override fun setupUIComponents() {
         super.setupUIComponents()
-        favouriteRecipeAdatper()
+        favouriteRecipeAdapter()
 
         //================== Logout Btn Start ============================
         binding.ivLogout.setOnClickListener {
@@ -74,8 +73,25 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
         //================== Choose Img Btn Start ======================
+    }
+
+    //===================== Favourite Adapter Start =======================
+    private fun favouriteRecipeAdapter() {
+        favouriteRecipeAdapter = FavouriteRecipeAdatper(emptyList())
+        favouriteRecipeAdapter.listener = object : FavouriteRecipeAdatper.Listener {
+            override fun onClick(recipe: FavoriteRecipe) {
+                val action =
+                    TabContainerFragmentDirections.actionTabContainerToFoodDetails(recipe.strMeal)
+                navController.navigate(action)
+            }
+        }
+
+        val staggeredLayoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
+        binding.rvRecipe.adapter = favouriteRecipeAdapter
+        binding.rvRecipe.layoutManager = staggeredLayoutManager
 
     }
+    //===================== Favourite Adapter End =======================
 
     override fun setupViewModelObserver() {
         super.setupViewModelObserver()
@@ -108,27 +124,12 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         //===================== Show Favourite Adapter Start =======================
         lifecycleScope.launch {
             viewModel.favourite.collect {
-                favouriteRecipeAdatper.setFavourite(it)
+                favouriteRecipeAdapter.setFavourite(it)
             }
         }
         //===================== Show Favourite Adapter End =======================
 
     }
-
-    //===================== Favourite Adapter Start =======================
-    private fun favouriteRecipeAdatper() {
-        favouriteRecipeAdatper = FavouriteRecipeAdatper(emptyList())
-
-//        val layoutManager = LinearLayoutManager(requireContext())
-//        binding.rvRecipe.adapter = favouriteRecipeAdatper
-//        binding.rvRecipe.layoutManager = layoutManager
-
-        val staggeredLayoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
-        binding.rvRecipe.adapter = favouriteRecipeAdatper
-        binding.rvRecipe.layoutManager = staggeredLayoutManager
-
-    }
-    //===================== Favourite Adapter End =======================
 
 
 }

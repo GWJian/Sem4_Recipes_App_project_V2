@@ -69,6 +69,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     //===================== MealAdapter Start =====================
     private fun setupAdapter2() {
         adapter2 = MealAdapter(emptyList())
+        //=========================== onClick Start ================================
         adapter2.listener = object : MealAdapter.Listener {
             override fun onClick(meal: Meal) {
 //                val action = HomeFragmentDirections.actionHomeToFoodDetails(meal.strMeal)
@@ -77,12 +78,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 navController.navigate(action)
             }
         }
+        //=========================== onClick Start ================================
 
         val staggeredLayoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
         binding.mealsRecyclerView.adapter = adapter2
         binding.mealsRecyclerView.layoutManager = staggeredLayoutManager
 
-        // Initialize SearchView here
+        // ======================== Initialize SearchView Start ====================================
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 // Call searchMeals when the user submits the search query
@@ -96,6 +98,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 return true
             }
         })
+        // ======================== Initialize SearchView End ====================================
+
     }
     //===================== MealAdapter End =====================
 
