@@ -20,6 +20,7 @@ plugins {
     id("com.google.dagger.hilt.android")
     // Add the Google services Gradle plugin
     id("com.google.gms.google-services")
+    id("com.google.firebase.appdistribution")
 }
 
 android {
@@ -46,6 +47,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "BASE_URL", getProp("baseUrl").toString())
         }
     }
     compileOptions {
