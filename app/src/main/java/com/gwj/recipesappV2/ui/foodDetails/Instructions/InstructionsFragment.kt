@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.gwj.recipesappV2.R
 import com.gwj.recipesappV2.databinding.FragmentIngredentsBinding
 import com.gwj.recipesappV2.databinding.FragmentInstructionsBinding
-import com.gwj.recipesappV2.ui.adapters.InstructionsAdapter
 import com.gwj.recipesappV2.ui.base.BaseFragment
 import com.gwj.recipesappV2.ui.foodDetails.FoodDetailsViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,7 +19,6 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class InstructionsFragment : BaseFragment<FragmentInstructionsBinding>() {
-    private lateinit var instructionsAdapter: InstructionsAdapter
     override val viewModel: FoodDetailsViewModel by viewModels(
         ownerProducer = { requireParentFragment() } //this will use the parent viewmodel from FoodDetailsViewModel
     )
@@ -36,23 +34,17 @@ class InstructionsFragment : BaseFragment<FragmentInstructionsBinding>() {
 
     override fun setupUIComponents() {
         super.setupUIComponents()
-        instructionsAdapter()
         setupViewModelObserver()
-    }
-    private fun instructionsAdapter(){
-        instructionsAdapter = InstructionsAdapter(emptyList())
     }
 
     override fun setupViewModelObserver() {
         super.setupViewModelObserver()
         lifecycleScope.launch {
             viewModel.instructions.collect { instructions ->
-                //Log.d("debugging_InstructionsFragment", "setupViewModelObserver: $instructions")
-                val instructionList = instructions.split(". ")
-                instructionsAdapter.instructionData(instructionList)
-                binding.tvInstructions.text = instructions
+                binding.instructions.text = instructions
+                    .replace(Regex("\r"), "\n")
             }
+
         }
     }
-
 }
