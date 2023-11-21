@@ -14,7 +14,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class AppModula {
+class NetworkModule {
     private val logging = Logger()
     private val client = OkHttpClient().newBuilder().addInterceptor(logging).build()
 

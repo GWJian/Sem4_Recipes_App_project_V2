@@ -31,7 +31,7 @@ class FavoriteRepoRealTimeImpl(
 
                 val recipe = mutableListOf<FavoriteRecipe>()
                 for (recipeSnapshot in snapshot.children) {
-                    Log.d("debugging", recipeSnapshot.key.toString())
+                    //Log.d("debugging_FavoriteRepoRealTimeImpl", "getAllFavoriteRecipe" + recipeSnapshot.key.toString())
                     recipeSnapshot.getValue<FavoriteRecipe>()?.let {
                         recipe.add(it.copy(id = recipeSnapshot.key ?: ""))
                     }
@@ -59,10 +59,6 @@ class FavoriteRepoRealTimeImpl(
             //if any error happen return false
             emit(false)
         }
-    }
-
-    override suspend fun getFavorite(userId: String, id: String): FavoriteRecipe {
-        TODO("Not yet implemented")
     }
 
     override suspend fun RemoveFromFavorite(userId: String, id: String) {

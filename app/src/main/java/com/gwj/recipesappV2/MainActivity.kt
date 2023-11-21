@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -24,10 +25,12 @@ class MainActivity : AppCompatActivity() {
     lateinit var navController: NavController
     private lateinit var dialog: AlertDialog
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val backgroundColor = ResourcesCompat.getColor(resources, R.color.gray_gray, null)
+        window.decorView.setBackgroundColor(backgroundColor)
 
         navController = findNavController(R.id.navHostFragment)
         // Get the current user from AuthService
@@ -37,7 +40,7 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(R.id.tabContainerFragment)
         }
 
-
+        //====================== No Connection Start =====================================
         dialog = MaterialAlertDialogBuilder(this, R.style.MaterialAlertDialog_Rounded)
             .setView(R.layout.network_dialog)
             .setCancelable(false)
@@ -53,31 +56,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         window.statusBarColor = Color.BLACK;
-
-//        val db = Firebase.firestore
-//
-//        // Create a new user with a first and last name
-//        val user = hashMapOf(
-//            "first" to "Ada",
-//            "last" to "Lovelace",
-//            "born" to 1815
-//        )
-//
-//// Add a new document with a generated ID
-//        db.collection("users")
-//            .add(user)
-//            .addOnSuccessListener { documentReference ->
-//                Log.d("debugging", "DocumentSnapshot added with ID: ${documentReference.id}")
-//            }
-//            .addOnFailureListener { e ->
-//                Log.w("debugging", "Error adding document", e)
-//            }
-//
-
-//        // Write a message to the database
-//        val database = Firebase.database
-//        val myRef = database.getReference("message")
-//
-//        myRef.setValue("Hello, World!")
+        //====================== No Connection End =====================================
     }
 }
