@@ -104,16 +104,17 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         }
         //=============== Load Profile Data End =====================
 
-        //===================== Favourite Adapter Start =======================
+        //===================== Show Favourite Adapter Start =======================
         lifecycleScope.launch {
            viewModel.favourite.collect{
                favouriteRecipeAdatper.setFavourite(it)
            }
         }
-        //===================== Favourite Adapter End =======================
+        //===================== Show Favourite Adapter End =======================
 
     }
 
+    //===================== Favourite Adapter Start =======================
     private fun favouriteRecipeAdatper() {
         favouriteRecipeAdatper = FavouriteRecipeAdatper(emptyList())
 
@@ -121,6 +122,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         binding.rvRecipe.adapter = favouriteRecipeAdatper
         binding.rvRecipe.layoutManager = layoutManager
     }
+    //===================== Favourite Adapter End =======================
 
 
 }

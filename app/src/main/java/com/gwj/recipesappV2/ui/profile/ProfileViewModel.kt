@@ -81,11 +81,13 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun getAllFavourite() {
-        viewModelScope.launch(Dispatchers.IO) {
-            safeApiCall {
-                favoriteRepo.getAllFavoriteRecipe()
-            }?.collect() {
-                _favourite.value = it
+        authService.getCurrentUser()?.uid?.let { id ->
+            viewModelScope.launch(Dispatchers.IO) {
+                safeApiCall {
+                    favoriteRepo.getAllFavoriteRecipe(id)
+                }?.collect() {
+                    _favourite.value = it
+                }
             }
         }
     }

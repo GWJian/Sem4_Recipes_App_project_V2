@@ -15,13 +15,23 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 
 class FavoriteRepoRealTimeImpl(
-    private val dbRef: DatabaseReference
+    private val dbRef: DatabaseReference,
 ) : FavoriteRepo {
-    override fun getAllFavoriteRecipe() = callbackFlow {
+    override fun getAllFavoriteRecipe(userId: String) = callbackFlow {
         val listener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+//                val recipe = (1..2).map {
+//                    FavoriteRecipe(
+//                        id = "id $it",
+//                        idMeal = "idMeal $it",
+//                        strMeal = "Title $it",
+//                        strMealThumb = "Dest $it"
+//                    )
+//                }.toList()
+
                 val recipe = mutableListOf<FavoriteRecipe>()
                 for (recipeSnapshot in snapshot.children) {
+                    Log.d("debugging", recipeSnapshot.key.toString())
                     recipeSnapshot.getValue<FavoriteRecipe>()?.let {
                         recipe.add(it.copy(id = recipeSnapshot.key ?: ""))
                     }
@@ -34,7 +44,7 @@ class FavoriteRepoRealTimeImpl(
             }
         }
 
-        dbRef.addValueEventListener(listener)
+        dbRef.child(userId).addValueEventListener(listener)
         awaitClose()
     }
 
@@ -42,7 +52,7 @@ class FavoriteRepoRealTimeImpl(
         //make a boolean flow, if success return true save to database, if fail return false
         return flow {
             //save the recipe to Realtime database with userId -> recipe.id and the recipe name
-            dbRef.child(userId).child(recipe.id).setValue(recipe).await()
+            dbRef.child(userId).child(recipe.id).setValue(recipe.toHashMap()).await()
             //if success return true
             emit(true)
         }.catch {
