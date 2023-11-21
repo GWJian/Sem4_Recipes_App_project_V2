@@ -1,52 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="8dp">
 
+<!--    <com.google.android.material.card.MaterialCardView-->
+<!--        android:id="@+id/mcMeals"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:backgroundTint="#3CF1EBF1"-->
+<!--        app:cardCornerRadius="18dp"-->
+<!--        app:strokeColor="@color/white"-->
+<!--        app:strokeWidth="2dp">-->
+
+<!--        <FrameLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
+<!--            -->
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:padding="15dp">-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/ivMealImage"-->
+<!--                    android:layout_width="100dp"-->
+<!--                    android:layout_height="100dp"-->
+<!--                    android:src="@drawable/ic_image" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tvMealName"-->
+<!--                    style="@style/TextAppearance.Material3.BodyLarge"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:text="Ingredient Name" />-->
+
+<!--            </LinearLayout>-->
+<!--        </FrameLayout>-->
+
+<!--    </com.google.android.material.card.MaterialCardView>-->
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/mcMeals"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#3CF1EBF1"
-        app:cardCornerRadius="18dp"
-        app:strokeColor="@color/white"
-        app:strokeWidth="2dp">
+        android:layout_margin="4dp"
+        android:background="@color/transparent">
 
-        <FrameLayout
+        <LinearLayout
+            android:id="@+id/llMealItem"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/transparent"
+            android:gravity="center"
+            android:orientation="vertical">
 
-<!--            <CheckBox-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="end|top"-->
-<!--                android:button="@drawable/checkbox_selector" />-->
+            <ImageView
+                android:id="@+id/ivMealImage"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/ic_image" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tvMealName"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="15dp">
+                android:layout_margin="10dp"
+                android:fontFamily="serif"
+                android:text="FoodName" />
 
-                <ImageView
-                    android:id="@+id/ivMealImage"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/ic_image" />
-
-                <TextView
-                    android:id="@+id/tvMealName"
-                    style="@style/TextAppearance.Material3.BodyLarge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="Ingredient Name" />
-
-            </LinearLayout>
-        </FrameLayout>
+            <!--            <TextView-->
+            <!--                android:id="@+id/tvArea"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_marginTop="5dp"-->
+            <!--                android:fontFamily="serif"-->
+            <!--                android:text="Country" />-->
+        </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
+
 
 </LinearLayout>

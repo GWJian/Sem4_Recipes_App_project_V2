@@ -14,6 +14,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
 import com.gwj.recipesappV2.R
 import com.gwj.recipesappV2.databinding.FragmentProfileBinding
@@ -106,9 +107,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
         //===================== Show Favourite Adapter Start =======================
         lifecycleScope.launch {
-           viewModel.favourite.collect{
-               favouriteRecipeAdatper.setFavourite(it)
-           }
+            viewModel.favourite.collect {
+                favouriteRecipeAdatper.setFavourite(it)
+            }
         }
         //===================== Show Favourite Adapter End =======================
 
@@ -118,9 +119,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     private fun favouriteRecipeAdatper() {
         favouriteRecipeAdatper = FavouriteRecipeAdatper(emptyList())
 
-        val layoutManager = LinearLayoutManager(requireContext())
+//        val layoutManager = LinearLayoutManager(requireContext())
+//        binding.rvRecipe.adapter = favouriteRecipeAdatper
+//        binding.rvRecipe.layoutManager = layoutManager
+
+        val staggeredLayoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
         binding.rvRecipe.adapter = favouriteRecipeAdatper
-        binding.rvRecipe.layoutManager = layoutManager
+        binding.rvRecipe.layoutManager = staggeredLayoutManager
+
     }
     //===================== Favourite Adapter End =======================
 
