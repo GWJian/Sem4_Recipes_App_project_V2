@@ -23,11 +23,14 @@ class HomeViewModel @Inject constructor(
     protected val _meals: MutableStateFlow<List<Meal>> = MutableStateFlow(emptyList())
     val meals: StateFlow<List<Meal>> = _meals
 
+    private val _selectedCatId = MutableStateFlow("") // we get empty String "", so we can set it selectedCatId into it
+    val selectedCatId : StateFlow<String> = _selectedCatId //String becuz we getting one id at a time
+
     init {
         getAllCategories()
         getAllMeals()
         searchMeals("")
-        getMealsByCategory("")
+        getMealsByCategory()
     }
 
     //==================== Get All Categories Start ====================
@@ -79,10 +82,13 @@ class HomeViewModel @Inject constructor(
     //==================== Search Meals End ====================
 
     //==================== get meals by category Start ====================
-    fun getMealsByCategory(category: String) {
+    fun getMealsByCategory(category: Category = Category()) //Category = Category() so we can get the all data in the Category model and use in here
+    {
+        _selectedCatId.value = category.idCategory
+
         viewModelScope.launch {
             try {
-                val meals = Meals.getCategoryMeals(category)
+                val meals = Meals.getCategoryMeals(category.strCategory)
                 _meals.value = emptyList() // Clear the meals list
                 _meals.value = meals // Update the meals list with the new meals
             } catch (e: Exception) {

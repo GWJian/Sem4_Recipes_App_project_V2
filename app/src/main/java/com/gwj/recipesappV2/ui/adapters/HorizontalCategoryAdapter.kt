@@ -15,7 +15,7 @@ class HorizontalCategoryAdapter(
     private var onCategoryClick: (Category) -> Unit,
 ) : RecyclerView.Adapter<HorizontalCategoryAdapter.CategoryOnClickViewHolder>() {
     //track the last button is clicked by user,so can change the color back to #00000000
-    private var lastClickedView: View? = null
+    private var selectedCatId: String? = null // track the selected category id selected by user
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -41,6 +41,11 @@ class HorizontalCategoryAdapter(
         notifyDataSetChanged()
     }
 
+    fun setSelectedCategory(id: String) {
+        selectedCatId = id
+        notifyDataSetChanged()
+    }
+
     //This allows user to click on the category and get the meals from that category
     inner class CategoryOnClickViewHolder(
         private val binding: HorizontalLayoutCategoriesItemBinding
@@ -49,14 +54,15 @@ class HorizontalCategoryAdapter(
             binding.run {
                 tvCategories.text = category.strCategory
 
-                itemView.setOnClickListener {
-                    // if user clicked other tvCategores,previes will back to #00000000
-                    lastClickedView?.setBackgroundColor(Color.parseColor("#00000000"))
-                    // Set the background become green when user clicked it
-                    it.setBackgroundColor(Color.parseColor("#0BDD20"))
-                    // Update the last clicked view
-                    lastClickedView = it
+                //if idCategory same as selectedCatId, then set the background color to green
+                if (category.idCategory == selectedCatId) {
+                    binding.llCategory.setBackgroundColor(Color.parseColor("#0BDD20"))
+                } else {
+                    // else back to #00000000
+                    binding.llCategory.setBackgroundColor(Color.parseColor("#00000000"))
+                }
 
+                itemView.setOnClickListener {
                     onCategoryClick(category)
                 }
 
