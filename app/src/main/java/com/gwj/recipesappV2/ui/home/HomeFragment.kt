@@ -36,21 +36,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun setupUIComponents() {
         super.setupUIComponents()
         setupAdapter2()
         setupAdapter()
-
     }
 
     //===================== HorizontalCategoryAdapter Start =====================
     private fun setupAdapter() {
         adapter = HorizontalCategoryAdapter(emptyList()) {
             //this getMealsByCategory is from HomeViewModel,so when we click the category, it will pass the category name to HomeViewModel
-            viewModel.getMealsByCategory(it.strCategory)
+            viewModel.getMealsByCategory(it)
         }
 
         val layoutManager =
@@ -72,7 +70,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         //=========================== onClick Start ================================
         adapter2.listener = object : MealAdapter.Listener {
             override fun onClick(meal: Meal) {
-//                val action = HomeFragmentDirections.actionHomeToFoodDetails(meal.strMeal)
                 val action =
                     TabContainerFragmentDirections.actionTabContainerToFoodDetails(meal.strMeal)
                 navController.navigate(action)
@@ -138,6 +135,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             }
         }
         //===================== lifecycleScope MealAdapter End =====================
+
+        //====================== setSelectedCategory Start =================
+        lifecycleScope.launch {
+            viewModel.selectedCatId.collect{
+                adapter.setSelectedCategory(it)
+            }
+        }
+        //====================== setSelectedCategory End =================
+
     }
 }
 
