@@ -7,9 +7,9 @@ import com.bumptech.glide.Glide
 import com.gwj.recipesappV2.data.model.FavoriteRecipe
 import com.gwj.recipesappV2.databinding.LayoutFavouriteRecipeBinding
 
-class FavouriteRecipeAdatper(
+class FavouriteRecipeAdapter(
     private var recipes: List<FavoriteRecipe>
-) : RecyclerView.Adapter<FavouriteRecipeAdatper.FavouriteRecipeViewHolder>() {
+) : RecyclerView.Adapter<FavouriteRecipeAdapter.FavouriteRecipeViewHolder>() {
     var listener: Listener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavouriteRecipeViewHolder {

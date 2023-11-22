@@ -15,10 +15,8 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
 import com.gwj.recipesappV2.R
 import com.gwj.recipesappV2.data.model.FavoriteRecipe
-import com.gwj.recipesappV2.data.model.Meal
 import com.gwj.recipesappV2.databinding.FragmentProfileBinding
-import com.gwj.recipesappV2.ui.adapters.FavouriteRecipeAdatper
-import com.gwj.recipesappV2.ui.adapters.MealAdapter
+import com.gwj.recipesappV2.ui.adapters.FavouriteRecipeAdapter
 import com.gwj.recipesappV2.ui.base.BaseFragment
 import com.gwj.recipesappV2.ui.tabContainer.TabContainerFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,7 +27,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
     override val viewModel: ProfileViewModel by viewModels()
     lateinit var pickMedia: ActivityResultLauncher<PickVisualMediaRequest>
-    private lateinit var favouriteRecipeAdapter: FavouriteRecipeAdatper
+    private lateinit var favouriteRecipeAdapter: FavouriteRecipeAdapter
 
     //============================ Personal Image Start ============================
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,8 +75,8 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
     //===================== Favourite Adapter Start =======================
     private fun favouriteRecipeAdapter() {
-        favouriteRecipeAdapter = FavouriteRecipeAdatper(emptyList())
-        favouriteRecipeAdapter.listener = object : FavouriteRecipeAdatper.Listener {
+        favouriteRecipeAdapter = FavouriteRecipeAdapter(emptyList())
+        favouriteRecipeAdapter.listener = object : FavouriteRecipeAdapter.Listener {
             override fun onClick(recipe: FavoriteRecipe) {
                 val action =
                     TabContainerFragmentDirections.actionTabContainerToFoodDetails(recipe.strMeal)
