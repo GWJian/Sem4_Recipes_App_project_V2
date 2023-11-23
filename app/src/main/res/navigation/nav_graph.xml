@@ -1,68 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/nav_graph"
-        app:startDestination="@id/startingFragment">
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/startingFragment">
 
-        <!-- Global Action -->
+    <!-- Global Action -->
+    <action
+        android:id="@+id/toLogin"
+        app:destination="@id/loginFragment"
+        app:popUpTo="@id/startingFragment"
+        app:popUpToInclusive="true" />
+
+    <action
+        android:id="@+id/toHome"
+        app:destination="@id/tabContainerFragment"
+        app:popUpTo="@id/loginFragment"
+        app:popUpToInclusive="true" />
+
+    <fragment
+        android:id="@+id/startingFragment"
+        android:name="com.gwj.recipesappV2.ui.starting.StartingFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_starting">
         <action
-            android:id="@+id/toLogin"
+            android:id="@+id/action_homeFragment_to_loginFragment"
             app:destination="@id/loginFragment"
-            app:popUpTo="@id/startingFragment"
-            app:popUpToInclusive="true" />
-
+            app:enterAnim="@anim/slide_in_bottom"
+            app:exitAnim="@anim/slide_out_top" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.gwj.recipesappV2.ui.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login">
         <action
-            android:id="@+id/toHome"
-            app:destination="@id/tabContainerFragment"
-            app:popUpTo="@id/loginFragment"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
 
-        <fragment
-            android:id="@+id/startingFragment"
-            android:name="com.gwj.recipesappV2.ui.starting.StartingFragment"
-            android:label="fragment_home"
-            tools:layout="@layout/fragment_starting">
-            <action
-                android:id="@+id/action_homeFragment_to_loginFragment"
-                app:destination="@id/loginFragment"
-                app:enterAnim="@anim/slide_in_bottom"
-                app:exitAnim="@anim/slide_out_top" />
-        </fragment>
-        <fragment
-            android:id="@+id/loginFragment"
-            android:name="com.gwj.recipesappV2.ui.login.LoginFragment"
-            android:label="fragment_login"
-            tools:layout="@layout/fragment_login">
-            <action
-                android:id="@+id/action_loginFragment_to_registerFragment"
-                app:destination="@id/registerFragment"
-                app:enterAnim="@anim/slide_in_right"
-                app:exitAnim="@anim/slide_out_left"/>
-        </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.gwj.recipesappV2.ui.register.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" />
 
-        <fragment
-            android:id="@+id/registerFragment"
-            android:name="com.gwj.recipesappV2.ui.register.RegisterFragment"
-            android:label="fragment_register"
-            tools:layout="@layout/fragment_register" />
-
-        <fragment
-            android:id="@+id/foodDetailsFragment"
-            android:name="com.gwj.recipesappV2.ui.foodDetails.FoodDetailsFragment"
-            android:label="fragment_food_details"
-            tools:layout="@layout/fragment_food_details">
-            <argument
-                android:name="mealName"
-                app:argType="string" />
-        </fragment>
-        <fragment
-            android:id="@+id/tabContainerFragment"
-            android:name="com.gwj.recipesappV2.ui.tabContainer.TabContainerFragment"
-            android:label="TabContainerFragment"
-            tools:layout="@layout/fragment_tab_container">
-            <action
-                android:id="@+id/action_tabContainer_to_foodDetails"
-                app:destination="@id/foodDetailsFragment" />
-        </fragment>
-    </navigation>
+    <fragment
+        android:id="@+id/foodDetailsFragment"
+        android:name="com.gwj.recipesappV2.ui.foodDetails.FoodDetailsFragment"
+        android:label="fragment_food_details"
+        tools:layout="@layout/fragment_food_details">
+        <argument
+            android:name="mealName"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/tabContainerFragment"
+        android:name="com.gwj.recipesappV2.ui.tabContainer.TabContainerFragment"
+        android:label="TabContainerFragment"
+        tools:layout="@layout/fragment_tab_container">
+        <action
+            android:id="@+id/action_tabContainer_to_foodDetails"
+            app:destination="@id/foodDetailsFragment" />
+    </fragment>
+</navigation>
