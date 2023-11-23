@@ -113,7 +113,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         //===================== lifecycleScope ShowUserName Start =====================
         lifecycleScope.launch {
             profileViewModel.user.collect {
-                binding.tvHello.text = "Hello ${it.name}"
+                binding.tvHello.text = "Hello ${it.name.capitalize()}"
             }
         }
         //===================== lifecycleScope ShowUserName End =====================

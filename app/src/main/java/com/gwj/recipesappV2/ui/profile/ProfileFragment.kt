@@ -105,7 +105,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         lifecycleScope.launch {
             viewModel.user.collect {
                 binding.tvEmail.text = it.email
-                binding.tvName.text = it.name
+                binding.tvName.text = it.name.capitalize()
             }
         }
 

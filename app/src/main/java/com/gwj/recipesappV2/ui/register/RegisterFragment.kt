@@ -50,7 +50,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
 
         lifecycleScope.launch {
             viewModel.success.collect {
-                val action = RegisterFragmentDirections.toLogin()
+                val action = RegisterFragmentDirections.toHome()
                 navController.navigate(action)
             }
         }
