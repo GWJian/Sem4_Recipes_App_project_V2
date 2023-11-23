@@ -36,7 +36,10 @@ class FoodDetailsViewModel @Inject constructor(
     private val _instructions: MutableStateFlow<String> = MutableStateFlow("")
     val instructions: StateFlow<String> = _instructions
 
-    private val _favoriteStatus = MutableStateFlow<String> ("")
+    private val _strYoutube: MutableStateFlow<String> = MutableStateFlow("")
+    val strYoutube: StateFlow<String> = _strYoutube
+
+    private val _favoriteStatus = MutableStateFlow<String>("")
     val favoriteStatusFlow: StateFlow<String> = _favoriteStatus
 
     private val _isFavorite = MutableStateFlow<Boolean>(false)
@@ -48,6 +51,7 @@ class FoodDetailsViewModel @Inject constructor(
                 Meals.getMealByName(name).let {
                     _meal.value = it
                     _instructions.value = it?.strInstructions ?: ""
+                    _strYoutube.value = it?.strYoutube ?: ""
                     _ingredientsWithMeasurements.value = listOf(
                         Pair(it?.strIngredient1 ?: "", it?.strMeasure1 ?: ""),
                         Pair(it?.strIngredient2 ?: "", it?.strMeasure2 ?: ""),
@@ -97,7 +101,8 @@ class FoodDetailsViewModel @Inject constructor(
             )
             // 尝试将菜谱添加到数据库的收藏夹中，并获取结果
             val result = repo.AddToFavorite(userId, favoriteRecipe).first()
-            _favoriteStatus.value = if (result) "Added to favorites" else "Failed to add to favorites"
+            _favoriteStatus.value =
+                if (result) "Added to favorites" else "Failed to add to favorites"
         } else {
             repo.RemoveFromFavorite(userId, meal?.idMeal ?: "")
             _favoriteStatus.value = "Removed from favorites"

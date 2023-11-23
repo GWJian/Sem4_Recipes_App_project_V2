@@ -1,5 +1,7 @@
 package com.gwj.recipesappV2.ui.foodDetails.Instructions
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -41,10 +43,22 @@ class InstructionsFragment : BaseFragment<FragmentInstructionsBinding>() {
         super.setupViewModelObserver()
         lifecycleScope.launch {
             viewModel.instructions.collect { instructions ->
-                binding.instructions.text = instructions
+                binding.instructions.text = "Instructions: \n$instructions"
                     .replace(Regex("\r"), "\n")
             }
-
         }
+
+        lifecycleScope.launch {
+            viewModel.strYoutube.collect { youtube ->
+                binding.youtubeLink.apply {
+                    text = youtube
+                    setOnClickListener {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(youtube))
+                        startActivity(intent)
+                    }
+                }
+            }
+        }
+
     }
 }
