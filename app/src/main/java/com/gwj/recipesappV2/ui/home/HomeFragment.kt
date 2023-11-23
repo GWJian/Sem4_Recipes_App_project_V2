@@ -129,9 +129,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         //===================== lifecycleScope MealAdapter Start =====================
         lifecycleScope.launch {
-            viewModel.meals.collect {
-                adapter2.setMeals(it)
-                //Log.d("debugging_HomeFragment", "viewModel_meals: $it ")
+//            viewModel.meals.collect {
+//                adapter2.setMeals(it)
+//                //Log.d("debugging_HomeFragment", "viewModel_meals: $it ")
+//            }
+
+            viewModel.isLoading.collect{
+                if (it){
+                    binding.progressBar.visibility = View.VISIBLE
+                } else{
+                    binding.progressBar.visibility = View.GONE
+                }
             }
         }
         //===================== lifecycleScope MealAdapter End =====================

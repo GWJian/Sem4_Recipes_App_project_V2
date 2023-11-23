@@ -24,7 +24,7 @@ class HomeViewModel @Inject constructor(
     val meals: StateFlow<List<Meal>> = _meals
 
     private val _selectedCatId = MutableStateFlow("") // we get empty String "", so we can set it selectedCatId into it
-    val selectedCatId : StateFlow<String> = _selectedCatId //String becuz we getting one id at a time
+    val selectedCatId: StateFlow<String> = _selectedCatId //String becuz we getting one id at a time
 
     init {
         getAllCategories()
@@ -51,6 +51,7 @@ class HomeViewModel @Inject constructor(
     //==================== Get All Meals Start ====================
     private fun getAllMeals() {
         viewModelScope.launch {
+            _isLoading.emit(true)
             try {
                 Meals.getAllMeals().let {
                     _meals.value = it // just display the meals list
