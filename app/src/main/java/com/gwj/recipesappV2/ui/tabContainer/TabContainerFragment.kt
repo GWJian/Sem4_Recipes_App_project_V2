@@ -37,12 +37,12 @@ class TabContainerFragment : Fragment() {
         TabLayoutMediator(binding.tlTabs, binding.vpContainer) { tab, position ->
             when (position) {
                 0 -> {
-                    //tab.text = "Home"
+                    tab.text = "Home"
                     tab.setIcon(R.drawable.ic_home)
                 }
 
                 else -> {
-                    //tab.text = "Profile"
+                    tab.text = "Profile"
                     tab.setIcon(R.drawable.ic_person)
                 }
             }
