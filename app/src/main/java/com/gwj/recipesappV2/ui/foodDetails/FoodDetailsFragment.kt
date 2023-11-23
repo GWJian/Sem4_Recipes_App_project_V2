@@ -125,7 +125,7 @@ class FoodDetailsFragment : BaseFragment<FragmentFoodDetailsBinding>() {
                 }
 
                 else -> {
-                    tab.text = "Instructions"
+                    tab.text = "Preparation steps"
                 }
             }
         }.attach()
