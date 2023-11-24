@@ -73,10 +73,12 @@ class HomeViewModel @Inject constructor(
         // Check if the query is not null or blank
         if (!query.isNullOrBlank()) {
             viewModelScope.launch {
+                _isLoading.emit(true)
                 try {
                     val meals =
                         Meals.searchAllMeals(query)// Call the API to get the meals based on the query
                     _meals.value = meals // update the mean list when user search for a meal
+                    _isLoading.emit(false)
                 } catch (e: Exception) {
                     //Log.d("debugging_HomeViewModel", "searchMeals_error: $e")
                     _error.emit(e.message ?: "Something went wrong while searching meals")
