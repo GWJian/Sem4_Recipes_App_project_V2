@@ -23,7 +23,8 @@ class HomeViewModel @Inject constructor(
     protected val _meals: MutableStateFlow<List<Meal>> = MutableStateFlow(emptyList())
     val meals: StateFlow<List<Meal>> = _meals
 
-    private val _selectedCatId = MutableStateFlow("") // we get empty String "", so we can set it selectedCatId into it
+    private val _selectedCatId =
+        MutableStateFlow("") // we get empty String "", so we can set it selectedCatId into it
     val selectedCatId: StateFlow<String> = _selectedCatId //String becuz we getting one id at a time
 
     init {
@@ -54,7 +55,9 @@ class HomeViewModel @Inject constructor(
             _isLoading.emit(true)
             try {
                 Meals.getAllMeals().let {
-                    _meals.value = it // just display the meals list
+                    _meals.value = it
+                    _isLoading.emit(false)
+                    // just display the meals list
                     //Log.d("debugging_HomeViewModel", "getAllMeals: $it")
                 }
             } catch (e: Exception) {
@@ -71,7 +74,8 @@ class HomeViewModel @Inject constructor(
         if (!query.isNullOrBlank()) {
             viewModelScope.launch {
                 try {
-                    val meals = Meals.searchAllMeals(query)// Call the API to get the meals based on the query
+                    val meals =
+                        Meals.searchAllMeals(query)// Call the API to get the meals based on the query
                     _meals.value = meals // update the mean list when user search for a meal
                 } catch (e: Exception) {
                     //Log.d("debugging_HomeViewModel", "searchMeals_error: $e")
