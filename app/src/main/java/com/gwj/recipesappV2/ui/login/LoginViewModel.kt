@@ -15,8 +15,6 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val authService: AuthService,
-//    private val userRepo: UserRepo,
-//    private val favoriteRepo: FavoriteRepo
 ) : BaseViewModel() {
 
     fun login(email: String, pass: String) {

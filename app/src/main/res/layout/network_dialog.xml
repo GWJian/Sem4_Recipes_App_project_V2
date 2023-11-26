@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             style="@style/TextAppearance.Material3.TitleLarge"
             android:layout_gravity="center_horizontal|bottom"
-            android:text="No Internet Connection" />
+            android:text="@string/no_internet_connection" />
 
     </FrameLayout>
 

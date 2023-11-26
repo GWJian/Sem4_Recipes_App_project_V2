@@ -51,16 +51,4 @@ class RegisterViewModel @Inject constructor(
             null
         }
     }
-
-//    fun validate(name: String, email: String, pass: String, confirmPass: String): String? {
-//        return if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-//            "Invalid email format"
-//        } else if (pass.length <= 5) {
-//            "Password must more than 5"
-//        } else if (pass != confirmPass) {
-//            "Password not match"
-//        } else {
-//            null
-//        }
-//    }
 }

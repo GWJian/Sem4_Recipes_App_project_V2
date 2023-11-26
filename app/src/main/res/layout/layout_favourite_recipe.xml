@@ -5,44 +5,6 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp">
 
-<!--    <com.google.android.material.card.MaterialCardView-->
-<!--        android:id="@+id/mcMeals"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:backgroundTint="#3CF1EBF1"-->
-<!--        app:cardCornerRadius="18dp"-->
-<!--        app:strokeColor="@color/white"-->
-<!--        app:strokeWidth="2dp">-->
-
-<!--        <FrameLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent">-->
-<!--            -->
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="horizontal"-->
-<!--                android:padding="15dp">-->
-
-<!--                <ImageView-->
-<!--                    android:id="@+id/ivMealImage"-->
-<!--                    android:layout_width="100dp"-->
-<!--                    android:layout_height="100dp"-->
-<!--                    android:src="@drawable/ic_image" />-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/tvMealName"-->
-<!--                    style="@style/TextAppearance.Material3.BodyLarge"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_gravity="center"-->
-<!--                    android:text="Ingredient Name" />-->
-
-<!--            </LinearLayout>-->
-<!--        </FrameLayout>-->
-
-<!--    </com.google.android.material.card.MaterialCardView>-->
-
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/mcMeals"
         android:layout_width="wrap_content"
@@ -70,15 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:fontFamily="serif"
-                android:text="FoodName" />
-
-            <!--            <TextView-->
-            <!--                android:id="@+id/tvArea"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_marginTop="5dp"-->
-            <!--                android:fontFamily="serif"-->
-            <!--                android:text="Country" />-->
+                android:text="@string/foodname" />
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>

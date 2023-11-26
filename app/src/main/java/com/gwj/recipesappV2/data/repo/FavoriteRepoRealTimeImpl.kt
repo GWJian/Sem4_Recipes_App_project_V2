@@ -20,14 +20,6 @@ class FavoriteRepoRealTimeImpl(
     override fun getAllFavoriteRecipe(userId: String) = callbackFlow {
         val listener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-//                val recipe = (1..2).map {
-//                    FavoriteRecipe(
-//                        id = "id $it",
-//                        idMeal = "idMeal $it",
-//                        strMeal = "Title $it",
-//                        strMealThumb = "Dest $it"
-//                    )
-//                }.toList()
 
                 val recipe = mutableListOf<FavoriteRecipe>()
                 for (recipeSnapshot in snapshot.children) {

@@ -16,7 +16,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Youtube Link:" />
+            android:text="@string/youtube_link" />
 
         <TextView
             android:id="@+id/youtubeLink"
@@ -31,9 +31,4 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
-
-    <!--    <TextView-->
-    <!--        android:id="@+id/instructions"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content" />-->
 </ScrollView>
