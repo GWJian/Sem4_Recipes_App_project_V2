@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
-        android:text="Hello {Fola}"
+        android:text="@string/hello_fola"
         android:textSize="30sp" />
 
     <TextView
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
-        android:hint="What are you cooking today?" />
+        android:hint="@string/what_are_you_cooking_today" />
 
     <SearchView
         android:id="@+id/searchView"

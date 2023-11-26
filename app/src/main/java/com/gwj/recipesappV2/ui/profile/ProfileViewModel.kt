@@ -91,10 +91,4 @@ class ProfileViewModel @Inject constructor(
             }
         }
     }
-
-//    fun refresh() {
-//        getAllFavourite()
-//    }
-
-
 }

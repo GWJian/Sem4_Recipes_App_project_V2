@@ -32,15 +32,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:fontFamily="serif"
-                android:text="FoodName" />
+                android:text="@string/food_name" />
 
-<!--            <TextView-->
-<!--                android:id="@+id/tvArea"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="5dp"-->
-<!--                android:fontFamily="serif"-->
-<!--                android:text="Country" />-->
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>

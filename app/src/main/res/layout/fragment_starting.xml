@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="100K+ Recipes"
+            android:text="@string/_100k_recipes"
             android:textColor="@color/white" />
     </LinearLayout>
 
@@ -46,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Get\nCooking"
+            android:text="@string/get_ncooking"
             android:textColor="@color/white"
             android:textSize="50sp" />
 
@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Simple Way To Find Tasty Recipe"
+            android:text="@string/simple_way_to_find_tasty_recipe"
             android:textColor="@color/white" />
 
         <com.google.android.material.button.MaterialButton
@@ -63,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Start Cooking" />
+            android:text="@string/start_cooking" />
 
     </LinearLayout>
 

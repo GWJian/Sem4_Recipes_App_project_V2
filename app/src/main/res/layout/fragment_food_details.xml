@@ -60,14 +60,14 @@
                 android:id="@+id/tvFoodName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Food Name" />
+                android:text="@string/food_name" />
 
             <TextView
                 android:id="@+id/tvFoodArea"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="end"
-                android:text="Food Area" />
+                android:text="@string/food_area" />
 
         </FrameLayout>
 
