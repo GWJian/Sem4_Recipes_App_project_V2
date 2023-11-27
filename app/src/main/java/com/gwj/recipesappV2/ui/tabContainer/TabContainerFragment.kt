@@ -18,12 +18,13 @@ class TabContainerFragment : Fragment() {
 
     private lateinit var binding: FragmentTabContainerBinding
 
+    //======================== Exit App Start ========================================
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val callback = object : OnBackPressedCallback(true /* enabled by default */) {
             override fun handleOnBackPressed() {
-                // Show a confirmation dialog
+                // Show dialog
                 AlertDialog.Builder(requireContext())
                     .setTitle("Exit App")
                     .setMessage("Are you sure you want to exit?")
@@ -37,6 +38,7 @@ class TabContainerFragment : Fragment() {
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
+    //======================== Exit App End ========================================
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,6 +50,7 @@ class TabContainerFragment : Fragment() {
     }
 
 
+    //======================== TabLayout Start ========================================
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -70,5 +73,6 @@ class TabContainerFragment : Fragment() {
             }
         }.attach()
     }
+    //======================== TabLayout End ========================================
 
 }
