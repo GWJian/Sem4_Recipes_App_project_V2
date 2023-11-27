@@ -44,7 +44,7 @@ class FavoriteRepoRealTimeImpl(
         //make a boolean flow, if success return true save to database, if fail return false
         return flow {
             //save the recipe to Realtime database with userId -> recipe.id and the recipe name
-            dbRef.child(userId).child(recipe.id).setValue(recipe.toHashMap()).await()
+            dbRef.child(userId).child(recipe.id).setValue(recipe).await()
             //if success return true
             emit(true)
         }.catch {
