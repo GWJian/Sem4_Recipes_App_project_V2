@@ -19,14 +19,18 @@ class FavoriteRepoRealTimeImpl(
 ) : FavoriteRepo {
     override fun getAllFavoriteRecipe(userId: String) = callbackFlow {
         val listener = object : ValueEventListener {
+            //this method will be called when the data is changed in the database
             override fun onDataChange(snapshot: DataSnapshot) {
 
+                // create a list of recipe to store the data from database
                 val recipe = mutableListOf<FavoriteRecipe>()
+                //loop through the snapshot to get the data
                 for (recipeSnapshot in snapshot.children) {
-                    //Log.d("debugging_FavoriteRepoRealTimeImpl", "getAllFavoriteRecipe" + recipeSnapshot.key.toString())
+                    //if the value is not empty, add the value to the list
                     recipeSnapshot.getValue<FavoriteRecipe>()?.let {
                         recipe.add(it.copy(id = recipeSnapshot.key ?: ""))
                     }
+                    //Log.d("debugging_FavoriteRepoRealTimeImpl", "getAllFavoriteRecipe" + recipeSnapshot.key.toString())
                 }
                 trySend(recipe)
             }
@@ -36,6 +40,7 @@ class FavoriteRepoRealTimeImpl(
             }
         }
 
+        //add the listener to the database reference, so when the data is changed, the listener will be called
         dbRef.child(userId).addValueEventListener(listener)
         awaitClose()
     }

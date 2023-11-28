@@ -86,9 +86,9 @@ class FoodDetailsViewModel @Inject constructor(
     }
 
     suspend fun toggleFavorite(userId: String, meal: Meal?, isChecked: Boolean) {
-        // 获取到Firebase实时数据库中"favorites"节点
+        // 获取到Firebase实时数据库中"favorites"节点/Get a reference to the "favorites" node in the Firebase Realtime Database
         val dbRef = FirebaseDatabase.getInstance().getReference("favorites")
-        // 创建一个FavoriteRepoRealTimeImpl对象
+        // 创建一个FavoriteRepoRealTimeImpl对象/Create a new instance of the FavoriteRepoRealTimeImpl class
         val repo = FavoriteRepoRealTimeImpl(dbRef)
 
         if (isChecked) {
@@ -99,7 +99,7 @@ class FoodDetailsViewModel @Inject constructor(
                 id = meal?.idMeal ?: "",
                 strMealThumb = meal?.strMealThumb ?: "",
             )
-            // 尝试将菜谱添加到数据库的收藏夹中，并获取结果
+            // 尝试将菜谱添加到数据库的收藏夹中，并获取结果/Try to add the recipe to the favorites in the database and get the result
             val result = repo.AddToFavorite(userId, favoriteRecipe).first()
             _favoriteStatus.value =
                 if (result) "Added to favorites" else "Failed to add to favorites"
@@ -110,13 +110,13 @@ class FoodDetailsViewModel @Inject constructor(
     }
 
     suspend fun checkIsFavorite(userId: String, idMeal: String?) {
-        // 获取到Firebase实时数据库中"favorites"节点
+        // 获取到Firebase实时数据库中"favorites"节点/Get a reference to the "favorites" node in the Firebase Realtime Database
         val dbRef = FirebaseDatabase.getInstance().getReference("favorites")
-        // 创建一个FavoriteRepoRealTimeImpl对象
+        // 创建一个FavoriteRepoRealTimeImpl对象/Create a new instance of the FavoriteRepoRealTimeImpl class
         val repo = FavoriteRepoRealTimeImpl(dbRef)
-        // 检查菜谱是否在数据库中被标记为收藏
+        // 检查菜谱是否在数据库中被标记为收藏/Check if the recipe is marked as favorite in the database
         val isFavorite = repo.isFavorite(userId, idMeal ?: "")
-        // if the recipe is marked as favorite, checkbox is checked
+        // if the recipe is marked as favorite, checkbox is checked/if the recipe is marked as favorite, checkbox is checked
         _isFavorite.value = isFavorite
     }
 }

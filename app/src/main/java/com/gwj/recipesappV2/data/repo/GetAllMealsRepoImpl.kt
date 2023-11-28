@@ -17,7 +17,7 @@ class GetAllMealsRepoImpl(private val RecipeApi: RecipeApi) : GetAllMealsRepo {
         return RecipeApi.getAllMealsByCategory(category).meals ?: emptyList()
     }
 
-    //这给getMealByName是在搜索框里面输入名字，然后返回一个我要的meal
+    //这给getMealByName是在搜索框里面输入名字，然后返回一个我要的meal/ when we search for a meal by name,return the meal we want
     override suspend fun getMealByName(name: String): Meal? {
         return RecipeApi.getAllMeals(name).meals?.let {
             it.firstOrNull()

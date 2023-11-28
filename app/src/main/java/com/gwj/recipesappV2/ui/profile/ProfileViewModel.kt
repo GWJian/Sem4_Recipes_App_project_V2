@@ -51,6 +51,7 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
+    // Update profile picture
     fun updateProfilePic(uri: Uri) {
         user.value.id?.let {
             viewModelScope.launch(Dispatchers.IO) {
@@ -61,6 +62,7 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
+    // Fetch profile picture URI
     fun getProfilePicUri() {
         viewModelScope.launch(Dispatchers.IO) {
             authService.getCurrentUser()?.uid.let {
@@ -69,6 +71,7 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
+    // Fetch current user
     fun getCurrentUser() {
         val firebaseUser = authService.getCurrentUser()
         firebaseUser?.let {
@@ -80,6 +83,7 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
+    // Fetch all favorite recipes
     fun getAllFavourite() {
         authService.getCurrentUser()?.uid?.let { id ->
             viewModelScope.launch(Dispatchers.IO) {
