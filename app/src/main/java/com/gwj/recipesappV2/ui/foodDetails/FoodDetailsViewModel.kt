@@ -116,7 +116,7 @@ class FoodDetailsViewModel @Inject constructor(
         val repo = FavoriteRepoRealTimeImpl(dbRef)
         // 检查菜谱是否在数据库中被标记为收藏/Check if the recipe is marked as favorite in the database
         val isFavorite = repo.isFavorite(userId, idMeal ?: "")
-        // if the recipe is marked as favorite, checkbox is checked/if the recipe is marked as favorite, checkbox is checked
+        // if the recipe is marked as favorite, checkbox is checked
         _isFavorite.value = isFavorite
     }
 }

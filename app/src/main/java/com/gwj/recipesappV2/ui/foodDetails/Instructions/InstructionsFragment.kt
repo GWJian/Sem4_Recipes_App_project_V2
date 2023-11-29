@@ -53,7 +53,7 @@ class InstructionsFragment : BaseFragment<FragmentInstructionsBinding>() {
                 binding.youtubeLink.apply {
                     text = youtube
                     setOnClickListener {
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(youtube))
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(youtube)) //open youtube link
                         startActivity(intent)
                     }
                 }

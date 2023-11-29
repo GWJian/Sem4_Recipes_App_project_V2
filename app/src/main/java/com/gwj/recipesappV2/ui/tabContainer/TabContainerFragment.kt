@@ -24,12 +24,12 @@ class TabContainerFragment : Fragment() {
 
         val callback = object : OnBackPressedCallback(true /* enabled by default */) {
             override fun handleOnBackPressed() {
-                // Show dialog
+                // Show dialog to confirm exit app
                 AlertDialog.Builder(requireContext())
                     .setTitle("Exit App")
                     .setMessage("Are you sure you want to exit?")
                     .setPositiveButton("Yes") { _, _ ->
-                        // Exit app
+                        // Exit the app
                         activity?.finish()
                     }
                     .setNegativeButton("No", null)
