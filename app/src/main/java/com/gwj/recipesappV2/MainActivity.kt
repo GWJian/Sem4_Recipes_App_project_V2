@@ -41,16 +41,24 @@ class MainActivity : AppCompatActivity() {
         }
 
         //====================== No Connection Start =====================================
+        // Create a new MaterialAlertDialogBuilder with the specified style
         dialog = MaterialAlertDialogBuilder(this, R.style.MaterialAlertDialog_Rounded)
+            // Set the view of the dialog to be the network_dialog layout
             .setView(R.layout.network_dialog)
+            // Set the dialog to be not cancelable, meaning the user can't dismiss it by clicking outside of it or pressing the back button
             .setCancelable(false)
+            // Create the AlertDialog from the builder
             .create()
 
         val networkManager = NetworkManager(this)
+        // Observe the network status. The lambda function provided will be invoked whenever the network status changes
         networkManager.observe(this) {
+            // 'it' refers to the network status. If the network is not connected (!it)
             if (!it) {
+                // If the dialog is not already showing, show it
                 if (!dialog.isShowing) dialog.show()
             } else {
+                // If the network is connected and the dialog is showing, hide it
                 if (dialog.isShowing) dialog.hide()
             }
         }

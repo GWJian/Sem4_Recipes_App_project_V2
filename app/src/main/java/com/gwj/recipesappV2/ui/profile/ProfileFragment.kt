@@ -37,10 +37,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
             // Callback is invoked after the user selects a media item or closes the
             // photo picker.
             if (uri != null) {
-                Log.d("PhotoPicker", "Selected URI: $uri")
+                //Log.d("PhotoPicker", "Selected URI: $uri")
                 viewModel.updateProfilePic(uri)
             } else {
-                Log.d("PhotoPicker", "No media selected")
+                //do nothing if close the picker
             }
         }
     }

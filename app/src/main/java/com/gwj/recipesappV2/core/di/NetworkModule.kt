@@ -21,11 +21,16 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideOkFoodApi(): RecipeApi {
+        // Create a new Retrofit instance
         return Retrofit.Builder()
+            // Set the API base URL
             .baseUrl(BuildConfig.BASE_URL)
+            // Add Gson converter factory to parse JSON responses
             .addConverterFactory(GsonConverterFactory.create())
+            // Set OkHttp client
             .client(client)
             .build()
+            // Create API implementation
             .create(RecipeApi::class.java)
     }
 
