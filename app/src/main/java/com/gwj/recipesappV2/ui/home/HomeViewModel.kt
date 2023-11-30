@@ -8,6 +8,7 @@ import com.gwj.recipesappV2.data.repo.CategoryRepo
 import com.gwj.recipesappV2.data.repo.GetAllMealsRepo
 import com.gwj.recipesappV2.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -36,7 +37,7 @@ class HomeViewModel @Inject constructor(
 
     //==================== Get All Categories Start ====================
     private fun getAllCategories() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 Category.getAllCategories().let {
                     _categories.value = it
@@ -51,7 +52,7 @@ class HomeViewModel @Inject constructor(
 
     //==================== Get All Meals Start ====================
     private fun getAllMeals() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _isLoading.emit(true)
             try {
                 Meals.getAllMeals().let {
@@ -72,7 +73,7 @@ class HomeViewModel @Inject constructor(
     fun searchMeals(query: String?) {
         // Check if the query is not null or blank
         if (!query.isNullOrBlank()) {
-            viewModelScope.launch {
+            viewModelScope.launch(Dispatchers.IO) {
                 _isLoading.emit(true)
                 try {
                     val meals =
@@ -93,7 +94,7 @@ class HomeViewModel @Inject constructor(
     {
         _selectedCatId.value = category.idCategory
 
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val meals = Meals.getCategoryMeals(category.strCategory)
                 _meals.value = emptyList() // Clear the meals list
