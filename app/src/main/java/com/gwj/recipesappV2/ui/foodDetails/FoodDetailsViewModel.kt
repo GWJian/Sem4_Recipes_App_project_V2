@@ -46,7 +46,7 @@ class FoodDetailsViewModel @Inject constructor(
     val isFavorite: StateFlow<Boolean> = _isFavorite
 
     fun getMealByName(name: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 Meals.getMealByName(name).let {
                     _meal.value = it

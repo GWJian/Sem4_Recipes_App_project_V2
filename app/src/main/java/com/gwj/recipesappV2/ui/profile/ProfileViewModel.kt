@@ -46,7 +46,7 @@ class ProfileViewModel @Inject constructor(
 
     fun logout() {
         authService.logout()
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             _finish.emit(Unit)
         }
     }
