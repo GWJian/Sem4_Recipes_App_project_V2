@@ -68,14 +68,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private fun setupAdapter2() {
         adapter2 = MealAdapter(emptyList())
         //=========================== onClick Start ================================
+        // Set the click listener for the meals adapter
         adapter2.listener = object : MealAdapter.Listener {
             override fun onClick(meal: Meal) {
+                // When a meal is clicked, navigate to the food details fragment
                 val action =
                     TabContainerFragmentDirections.actionTabContainerToFoodDetails(meal.strMeal)
                 navController.navigate(action)
             }
         }
-        //=========================== onClick Start ================================
+        //=========================== onClick End ================================
 
         val staggeredLayoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
         binding.mealsRecyclerView.adapter = adapter2
@@ -104,6 +106,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         super.setupViewModelObserver()
         //===================== lifecycleScope error Start =====================
         lifecycleScope.launch {
+            // Observe the user LiveData from the profile ViewModel and update the greeting text when it changes
             viewModel.error.collect() {
                 //Log.d("debugging_HomeFragment", "viewModel_error: $it ")
             }
@@ -112,6 +115,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         //===================== lifecycleScope ShowUserName Start =====================
         lifecycleScope.launch {
+            // Observe the user LiveData from the profile ViewModel and update the greeting text when it changes
             profileViewModel.user.collect {
                 binding.tvHello.text = "Hello ${it.name.capitalize()}"
             }
@@ -120,20 +124,16 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         //===================== lifecycleScope HorizontalCategoryAdapter Start =====================
         lifecycleScope.launch {
+            // Observe the categories LiveData from the ViewModel and update the categories adapter when it changes
             viewModel.categories.collect {
                 adapter.setCategories(it)
-                //Log.d("debugging_HomeFragment", "viewModel_categories: $it ")
             }
         }
         //===================== lifecycleScope HorizontalCategoryAdapter End =====================
 
         //===================== lifecycleScope MealAdapter Start =====================
         lifecycleScope.launch {
-//            viewModel.meals.collect {
-//                adapter2.setMeals(it)
-//                //Log.d("debugging_HomeFragment", "viewModel_meals: $it ")
-//            }
-
+            // Observe the isLoading LiveData from the ViewModel and show/hide the progress bar when it changes
             viewModel.isLoading.collect{
                 if (it){
                     binding.progressBar.visibility = View.VISIBLE

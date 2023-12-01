@@ -5,14 +5,16 @@ import kotlinx.coroutines.flow.Flow
 
 interface FavoriteRepo {
 
+    // get all favorite recipes of a user. It returns a Flow of list of FavoriteRecipe.
     fun getAllFavoriteRecipe(userId: String): Flow<List<FavoriteRecipe>>
 
-    //we use Boolean because we want to know it is success to set into database or not
-    //we set userId because we want to know which user is adding the recipe,so only the user can see it in their favorite list
+    // add a recipe to the favorites of a user. It returns a Flow of Boolean indicating the success of the operation.
     suspend fun AddToFavorite(userId: String, recipe: FavoriteRecipe): Flow<Boolean>
 
+    // remove a recipe from the favorites of a user.
     suspend fun RemoveFromFavorite(userId: String, id: String)
 
+    // check if a recipe is in the favorites of a user. It returns a Boolean indicating whether the recipe is a favorite or not.
     suspend fun isFavorite(userId: String, id: String): Boolean
 
 }

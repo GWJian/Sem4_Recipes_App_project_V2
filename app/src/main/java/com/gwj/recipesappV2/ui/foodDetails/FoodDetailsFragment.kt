@@ -40,7 +40,7 @@ class FoodDetailsFragment : BaseFragment<FragmentFoodDetailsBinding>() {
 
     override fun setupUIComponents() {
         super.setupUIComponents()
-        viewModel.getMealByName(args.mealName)
+        viewModel.getMealByName(args.mealName) //get the meal by name
 
         binding.run {
 
@@ -52,7 +52,7 @@ class FoodDetailsFragment : BaseFragment<FragmentFoodDetailsBinding>() {
                     val userId = user?.uid ?: ""
                     //get the current meal
                     val meal = viewModel.meal.first()
-                    // 根据复选框的状态切换餐点的收藏状态
+                    // 根据复选框的状态切换餐点的收藏状态 / Toggle the favorite status of the meal based on the state of the checkbox
                     viewModel.toggleFavorite(userId, meal, cbFavorite.isChecked)
                 }
             }
@@ -68,6 +68,7 @@ class FoodDetailsFragment : BaseFragment<FragmentFoodDetailsBinding>() {
 
         //============================ show the meal Start ============================//
         lifecycleScope.launch {
+            // 收集来自ViewModel的meal StateFlow / collect the meal StateFlow from the ViewModel
             viewModel.meal.collect { meal ->
                 // Update the UI with the meal data
                 binding.tvFoodName.setText(meal?.strMeal)
@@ -86,9 +87,9 @@ class FoodDetailsFragment : BaseFragment<FragmentFoodDetailsBinding>() {
 
         //============================ check checkbox Is Favorite or not Start ============================//
         lifecycleScope.launch {
-            // 收集来自ViewModel的isFavorite StateFlow
+            // 收集来自ViewModel的isFavorite StateFlow/ collect the isFavorite StateFlow from the ViewModel
             viewModel.isFavorite.collect { isFavorite ->
-                // 根据收藏状态更新复选框的状态
+                // 根据收藏状态更新复选框的状态 / Update the checkbox state based on the favorite status
                 binding.cbFavorite.isChecked = isFavorite
             }
         }
@@ -97,9 +98,9 @@ class FoodDetailsFragment : BaseFragment<FragmentFoodDetailsBinding>() {
 
         //============================ check toggleFavorite Start ============================//
         lifecycleScope.launch {
-            // 收集来自ViewModel的favoriteStatusFlow StateFlow
+            // 收集来自ViewModel的favoriteStatusFlow StateFlow / collect the favoriteStatusFlow StateFlow from the ViewModel
             viewModel.favoriteStatusFlow.collect { status ->
-                // 如果状态不为空，则显示带有状态消息的Snackbar
+                // 如果状态不为空，则显示带有状态消息的Snackbar / If the status is not empty, show a Snackbar with the status message
                 if (status.isNotEmpty()) {
                     Snackbar.make(binding.root, status, Snackbar.LENGTH_SHORT).show()
                 }

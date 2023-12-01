@@ -38,6 +38,8 @@ class MealAdapter(
     inner class MealsItemViewHolder(
         private val binding: LayoutMealsItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
+
+        // bind the data to the recipe item layout
         fun bind(meal: Meal) {
             binding.run {
                 tvMealName.text = meal.strMeal
@@ -46,7 +48,9 @@ class MealAdapter(
                     .load(meal.strMealThumb)
                     .into(ivMealImg)
 
+                // Set the click listener for the recipe item
                 mcMealCV.setOnClickListener {
+                    // Call the onClick function of the listener
                     listener?.onClick(meal)
                 }
             }
@@ -54,6 +58,6 @@ class MealAdapter(
     }
 
     interface Listener {
-        fun onClick(meal: Meal)
+        fun onClick(meal: Meal) // to handle click events on the meal items
     }
 }

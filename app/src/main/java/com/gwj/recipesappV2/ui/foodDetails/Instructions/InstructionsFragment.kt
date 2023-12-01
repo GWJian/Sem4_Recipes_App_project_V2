@@ -42,6 +42,7 @@ class InstructionsFragment : BaseFragment<FragmentInstructionsBinding>() {
     override fun setupViewModelObserver() {
         super.setupViewModelObserver()
         lifecycleScope.launch {
+            // Collect the instructions from the ViewModel and update the TextView
             viewModel.instructions.collect { instructions ->
                 binding.instructions.text = "Instructions: \n$instructions"
                     .replace(Regex("\r"), "\n")
@@ -51,10 +52,11 @@ class InstructionsFragment : BaseFragment<FragmentInstructionsBinding>() {
         lifecycleScope.launch {
             viewModel.strYoutube.collect { youtube ->
                 binding.youtubeLink.apply {
-                    text = youtube
+                    text = youtube // Set the click listener for the TextView
                     setOnClickListener {
+                        // Create an Intent to view the YouTube link
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(youtube)) //open youtube link
-                        startActivity(intent)
+                        startActivity(intent) // Start the Intent
                     }
                 }
             }
