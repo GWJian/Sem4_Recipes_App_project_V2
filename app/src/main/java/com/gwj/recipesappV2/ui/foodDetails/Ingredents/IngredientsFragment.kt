@@ -42,9 +42,11 @@ class IngredientsFragment : BaseFragment<FragmentIngredentsBinding>() {
     }
 
     private fun ingredientsAdapter() {
+        // Create a new IngredientsAdapter with an empty list
         ingredientsAdapter = IngredientsAdapter(emptyList())
 
         val linearLayoutManager = LinearLayoutManager(requireContext())
+        // Set the adapter on the RecyclerView
         binding.ingredientsRV.adapter = ingredientsAdapter
         binding.ingredientsRV.layoutManager = linearLayoutManager
     }
@@ -53,7 +55,9 @@ class IngredientsFragment : BaseFragment<FragmentIngredentsBinding>() {
     override fun setupViewModelObserver() {
         super.setupViewModelObserver()
 
+        // launch a coroutine
         lifecycleScope.launch {
+            // Collect the ingredients from the ViewModel and update the IngredientsAdapter
             viewModel.ingredientsWithMeasurements.collect { ingredients ->
                 ingredientsAdapter.ingredientData(ingredients)
             }

@@ -5,14 +5,18 @@ import com.gwj.recipesappV2.data.api.RecipeApi
 import com.gwj.recipesappV2.data.model.Meal
 
 class GetAllMealsRepoImpl(private val RecipeApi: RecipeApi) : GetAllMealsRepo {
+
+    // get all meals by calling the API. If the API returns null, return an empty list.
     override suspend fun getAllMeals(): List<Meal> {
         return RecipeApi.getAllMeals("").meals ?: emptyList()
     }
 
+    // search all meals by a query string by calling the API. If the API returns null, return an empty list.
     override suspend fun searchAllMeals(query: String): List<Meal> {
         return RecipeApi.getAllMeals(query).meals ?: emptyList()
     }
 
+    // get all meals of a specific category by calling the API. If the API returns null, return an empty list.
     override suspend fun getCategoryMeals(category: String): List<Meal> {
         return RecipeApi.getAllMealsByCategory(category).meals ?: emptyList()
     }

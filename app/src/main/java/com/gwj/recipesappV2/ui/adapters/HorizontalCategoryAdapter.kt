@@ -11,10 +11,10 @@ import com.gwj.recipesappV2.data.model.Category
 import com.gwj.recipesappV2.databinding.HorizontalLayoutCategoriesItemBinding
 
 class HorizontalCategoryAdapter(
-    private var categories: List<Category>,
-    private var onCategoryClick: (Category) -> Unit,
+    private var categories: List<Category>, // List of categories
+    private var onCategoryClick: (Category) -> Unit, // call when a category is clicked
 ) : RecyclerView.Adapter<HorizontalCategoryAdapter.CategoryOnClickViewHolder>() {
-    //track the last button is clicked by user,so can change the color back to #00000000
+
     private var selectedCatId: String? = null // track the selected category id selected by user
 
     override fun onCreateViewHolder(
@@ -36,11 +36,13 @@ class HorizontalCategoryAdapter(
         holder.bind(item)
     }
 
+    // update the list of categories
     fun setCategories(items: List<Category>) {
         categories = items
         notifyDataSetChanged()
     }
 
+    //to set the background color of the selected category
     fun setSelectedCategory(id: String) {
         selectedCatId = id
         notifyDataSetChanged()
@@ -52,7 +54,7 @@ class HorizontalCategoryAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(category: Category) {
             binding.run {
-                tvCategories.text = category.strCategory
+                tvCategories.text = category.strCategory // Set the category name
 
                 //if idCategory same as selectedCatId, then set the background color to green
                 if (category.idCategory == selectedCatId) {
@@ -62,6 +64,7 @@ class HorizontalCategoryAdapter(
                     binding.llCategory.setBackgroundColor(Color.parseColor("#00000000"))
                 }
 
+                // Set the click listener for the category item
                 itemView.setOnClickListener {
                     onCategoryClick(category)
                 }

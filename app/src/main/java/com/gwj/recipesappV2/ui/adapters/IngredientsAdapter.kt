@@ -34,15 +34,19 @@ class IngredientsAdapter(
     }
 
     inner class IngredientViewHolder(
-        private val binding: LayoutIngredientsItemBinding
+        private val binding: LayoutIngredientsItemBinding // Binding for the recipe item layout
     ) : RecyclerView.ViewHolder(binding.root) {
+
+        // bind the ingredient data to the layout
         fun bind(ingredient: Pair<String, String>) {
             binding.run {
-                tvIngredientsName.text = ingredient.first
-                tvIngredientMeasure.text = ingredient.second
+                tvIngredientsName.text = ingredient.first // Set the ingredient name
+                tvIngredientMeasure.text = ingredient.second // Set the ingredient measure
 
+                // Construct the URL for the ingredient image
                 val imageUrl =
                     "https://www.themealdb.com/images/ingredients/${ingredient.first}.png"
+                // Load the ingredient image
                 Glide.with(binding.root)
                     .load(imageUrl)
                     .into(ivIngredients)

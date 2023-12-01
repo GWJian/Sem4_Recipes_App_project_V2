@@ -96,7 +96,7 @@ class HomeViewModel @Inject constructor(
 
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val meals = Meals.getCategoryMeals(category.strCategory)
+                val meals = Meals.getCategoryMeals(category.strCategory) // Call the API to get the meals based on the category
                 _meals.value = emptyList() // Clear the meals list
                 _meals.value = meals // Update the meals list with the new meals
             } catch (e: Exception) {

@@ -59,7 +59,7 @@ class FavoriteRepoRealTimeImpl(
     }
 
     override suspend fun RemoveFromFavorite(userId: String, id: String) {
-        //删除数据库中的数据,通过userId和recipe.id来删除
+        //删除数据库中的数据,通过userId和recipe.id来删除/ delete the data in the database by userId and recipe.id
         dbRef.child(userId).child(id).removeValue().await()
     }
 
