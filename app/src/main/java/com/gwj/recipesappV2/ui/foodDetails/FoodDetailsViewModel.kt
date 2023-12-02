@@ -4,11 +4,11 @@ import android.util.Log
 import android.util.LogPrinter
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.database.FirebaseDatabase
-import com.gwj.recipesappV2.data.model.FavoriteRecipe
+import com.gwj.recipesappV2.data.model.favouriteRecipe
 import com.gwj.recipesappV2.data.model.Meal
 import com.gwj.recipesappV2.data.model.User
-import com.gwj.recipesappV2.data.repo.FavoriteRepo
-import com.gwj.recipesappV2.data.repo.FavoriteRepoRealTimeImpl
+import com.gwj.recipesappV2.data.repo.favouriteRepo
+import com.gwj.recipesappV2.data.repo.favouriteRepoRealTimeImpl
 import com.gwj.recipesappV2.data.repo.GetAllMealsRepo
 import com.gwj.recipesappV2.data.repo.UserRepo
 import com.gwj.recipesappV2.ui.base.BaseViewModel
@@ -24,7 +24,7 @@ import javax.inject.Inject
 @HiltViewModel
 class FoodDetailsViewModel @Inject constructor(
     private val Meals: GetAllMealsRepo,
-    private val favoriteRepo: FavoriteRepo
+    private val favouriteRepo: favouriteRepo
 ) : BaseViewModel() {
     private val _meal: MutableStateFlow<Meal?> = MutableStateFlow(null)
     val meal: StateFlow<Meal?> = _meal
@@ -40,14 +40,14 @@ class FoodDetailsViewModel @Inject constructor(
     private val _strYoutube: MutableStateFlow<String> = MutableStateFlow("")
     val strYoutube: StateFlow<String> = _strYoutube
 
-    private val _favoriteStatus = MutableStateFlow<String>("")
-    val favoriteStatusFlow: StateFlow<String> = _favoriteStatus
+    private val _favouriteStatus = MutableStateFlow<String>("")
+    val favouriteStatusFlow: StateFlow<String> = _favouriteStatus
 
-    private val _isFavorite = MutableStateFlow<Boolean>(false)
-    val isFavorite: StateFlow<Boolean> = _isFavorite
+    private val _isfavourite = MutableStateFlow<Boolean>(false)
+    val isfavourite: StateFlow<Boolean> = _isfavourite
 
-    private val _favoriteCount = MutableStateFlow<Int>(0)
-    val favoriteCount: StateFlow<Int> = _favoriteCount
+    private val _favouriteCount = MutableStateFlow<Int>(0)
+    val favouriteCount: StateFlow<Int> = _favouriteCount
 
     fun getMealByName(name: String) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -89,46 +89,46 @@ class FoodDetailsViewModel @Inject constructor(
         }
     }
 
-    suspend fun toggleFavorite(userId: String, meal: Meal?, isChecked: Boolean) {
-        // 获取到Firebase实时数据库中"favorites"节点/Get a reference to the "favorites" node in the Firebase Realtime Database
-        val dbRef = FirebaseDatabase.getInstance().getReference("favorites")
-        // 创建一个FavoriteRepoRealTimeImpl对象/Create a new instance of the FavoriteRepoRealTimeImpl class
-        val repo = FavoriteRepoRealTimeImpl(dbRef)
+    suspend fun togglefavourite(userId: String, meal: Meal?, isChecked: Boolean) {
+        // 获取到Firebase实时数据库中"favourites"节点/Get a reference to the "favourites" node in the Firebase Realtime Database
+        val dbRef = FirebaseDatabase.getInstance().getReference("favourites")
+        // 创建一个favouriteRepoRealTimeImpl对象/Create a new instance of the favouriteRepoRealTimeImpl class
+        val repo = favouriteRepoRealTimeImpl(dbRef)
 
         if (isChecked) {
-            // if the checkbox is checked, add the recipe to the favorites
-            val favoriteRecipe = FavoriteRecipe(
+            // if the checkbox is checked, add the recipe to the favourites
+            val favouriteRecipe = favouriteRecipe(
                 idMeal = meal?.idMeal ?: "",
                 strMeal = meal?.strMeal ?: "",
                 id = meal?.idMeal ?: "",
                 strMealThumb = meal?.strMealThumb ?: "",
             )
-            // 尝试将菜谱添加到数据库的收藏夹中，并获取结果/Try to add the recipe to the favorites in the database and get the result
-            val result = repo.AddToFavorite(userId, favoriteRecipe).first()
-            _favoriteStatus.value =
-                if (result) "Added to favorites" else "Failed to add to favorites"
+            // 尝试将菜谱添加到数据库的收藏夹中，并获取结果/Try to add the recipe to the favourites in the database and get the result
+            val result = repo.AddTofavourite(userId, favouriteRecipe).first()
+            _favouriteStatus.value =
+                if (result) "Added to favourites" else "Failed to add to favourites"
         } else {
-            repo.RemoveFromFavorite(userId, meal?.idMeal ?: "")
-            _favoriteStatus.value = "Removed from favorites"
+            repo.RemoveFromfavourite(userId, meal?.idMeal ?: "")
+            _favouriteStatus.value = "Removed from favourites"
         }
     }
 
-    fun fetchFavoriteCount(recipeId: String) {
+    fun fetchfavouriteCount(recipeId: String) {
         viewModelScope.launch {
-            favoriteRepo.getFavoriteCount(recipeId).collect { count ->
-                _favoriteCount.value = count
+            favouriteRepo.getfavouriteCount(recipeId).collect { count ->
+                _favouriteCount.value = count
             }
         }
     }
 
-    suspend fun checkIsFavorite(userId: String, idMeal: String?) {
-        // 获取到Firebase实时数据库中"favorites"节点/Get a reference to the "favorites" node in the Firebase Realtime Database
-        val dbRef = FirebaseDatabase.getInstance().getReference("favorites")
-        // 创建一个FavoriteRepoRealTimeImpl对象/Create a new instance of the FavoriteRepoRealTimeImpl class
-        val repo = FavoriteRepoRealTimeImpl(dbRef)
-        // 检查菜谱是否在数据库中被标记为收藏/Check if the recipe is marked as favorite in the database
-        val isFavorite = repo.isFavorite(userId, idMeal ?: "")
-        // if the recipe is marked as favorite, checkbox is checked
-        _isFavorite.value = isFavorite
+    suspend fun checkIsfavourite(userId: String, idMeal: String?) {
+        // 获取到Firebase实时数据库中"favourites"节点/Get a reference to the "favourites" node in the Firebase Realtime Database
+        val dbRef = FirebaseDatabase.getInstance().getReference("favourites")
+        // 创建一个favouriteRepoRealTimeImpl对象/Create a new instance of the favouriteRepoRealTimeImpl class
+        val repo = favouriteRepoRealTimeImpl(dbRef)
+        // 检查菜谱是否在数据库中被标记为收藏/Check if the recipe is marked as favourite in the database
+        val isfavourite = repo.isfavourite(userId, idMeal ?: "")
+        // if the recipe is marked as favourite, checkbox is checked
+        _isfavourite.value = isfavourite
     }
 }
