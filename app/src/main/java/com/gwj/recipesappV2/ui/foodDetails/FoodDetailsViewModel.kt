@@ -24,6 +24,7 @@ import javax.inject.Inject
 @HiltViewModel
 class FoodDetailsViewModel @Inject constructor(
     private val Meals: GetAllMealsRepo,
+    private val favoriteRepo: FavoriteRepo
 ) : BaseViewModel() {
     private val _meal: MutableStateFlow<Meal?> = MutableStateFlow(null)
     val meal: StateFlow<Meal?> = _meal
@@ -44,6 +45,9 @@ class FoodDetailsViewModel @Inject constructor(
 
     private val _isFavorite = MutableStateFlow<Boolean>(false)
     val isFavorite: StateFlow<Boolean> = _isFavorite
+
+    private val _favoriteCount = MutableStateFlow<Int>(0)
+    val favoriteCount: StateFlow<Int> = _favoriteCount
 
     fun getMealByName(name: String) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -106,6 +110,14 @@ class FoodDetailsViewModel @Inject constructor(
         } else {
             repo.RemoveFromFavorite(userId, meal?.idMeal ?: "")
             _favoriteStatus.value = "Removed from favorites"
+        }
+    }
+
+    fun fetchFavoriteCount(recipeId: String) {
+        viewModelScope.launch {
+            favoriteRepo.getFavoriteCount(recipeId).collect { count ->
+                _favoriteCount.value = count
+            }
         }
     }
 

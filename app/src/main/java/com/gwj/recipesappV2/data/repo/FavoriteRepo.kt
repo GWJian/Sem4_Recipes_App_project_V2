@@ -9,12 +9,14 @@ interface FavoriteRepo {
     fun getAllFavoriteRecipe(userId: String): Flow<List<FavoriteRecipe>>
 
     // add a recipe to the favorites of a user. It returns a Flow of Boolean indicating the success of the operation.
-    suspend fun AddToFavorite(userId: String, recipe: FavoriteRecipe): Flow<Boolean>
+    suspend fun AddToFavorite(userId: String, recipeId: FavoriteRecipe): Flow<Boolean>
 
     // remove a recipe from the favorites of a user.
-    suspend fun RemoveFromFavorite(userId: String, id: String)
+    suspend fun RemoveFromFavorite(userId: String, recipeId: String)
 
     // check if a recipe is in the favorites of a user. It returns a Boolean indicating whether the recipe is a favorite or not.
-    suspend fun isFavorite(userId: String, id: String): Boolean
+    suspend fun isFavorite(userId: String, recipeId: String): Boolean
 
+    // get the number of favorites of a recipe. It returns a Flow of Int.
+    fun getFavoriteCount(recipeId: String): Flow<Int>
 }

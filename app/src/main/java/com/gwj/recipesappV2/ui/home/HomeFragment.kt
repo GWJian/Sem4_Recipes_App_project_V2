@@ -73,7 +73,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             override fun onClick(meal: Meal) {
                 // When a meal is clicked, navigate to the food details fragment
                 val action =
-                    TabContainerFragmentDirections.actionTabContainerToFoodDetails(meal.strMeal)
+                    TabContainerFragmentDirections.actionTabContainerToFoodDetails(meal.strMeal, meal.idMeal)
                 navController.navigate(action)
             }
         }

@@ -42,6 +42,8 @@ class FoodDetailsFragment : BaseFragment<FragmentFoodDetailsBinding>() {
         super.setupUIComponents()
         viewModel.getMealByName(args.mealName) //get the meal by name
 
+        viewModel.fetchFavoriteCount(args.mealId) //get the favorite count
+
         binding.run {
 
             cbFavorite.setOnClickListener {
@@ -107,6 +109,13 @@ class FoodDetailsFragment : BaseFragment<FragmentFoodDetailsBinding>() {
             }
         }
         //============================ check toggleFavorite End ============================//
+
+        lifecycleScope.launch {
+            viewModel.favoriteCount.collect { count ->
+                // Update the UI with the favorite count
+                binding.tvFavouriteCount.text = "$count favorites"
+            }
+        }
 
     }
 

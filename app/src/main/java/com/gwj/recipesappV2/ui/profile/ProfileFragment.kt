@@ -79,7 +79,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
         favouriteRecipeAdapter.listener = object : FavouriteRecipeAdapter.Listener {
             override fun onClick(recipe: FavoriteRecipe) {
                 val action =
-                    TabContainerFragmentDirections.actionTabContainerToFoodDetails(recipe.strMeal)
+                    TabContainerFragmentDirections.actionTabContainerToFoodDetails(recipe.strMeal ?: "", recipe.idMeal ?: "")
                 navController.navigate(action)
             }
         }
