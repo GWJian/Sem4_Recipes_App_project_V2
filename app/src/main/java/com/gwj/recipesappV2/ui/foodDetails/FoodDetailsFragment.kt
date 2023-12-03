@@ -110,12 +110,14 @@ class FoodDetailsFragment : BaseFragment<FragmentFoodDetailsBinding>() {
         }
         //============================ check togglefavourite End ============================//
 
+        //============================ show the favourite count Start ============================//
         lifecycleScope.launch {
             viewModel.favouriteCount.collect { count ->
                 // Update the UI with the favourite count
                 binding.tvFavouriteCount.text = "$count favourites"
             }
         }
+        //============================ show the favourite count End ============================//
 
     }
 

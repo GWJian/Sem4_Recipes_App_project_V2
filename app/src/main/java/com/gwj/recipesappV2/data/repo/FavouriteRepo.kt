@@ -17,6 +17,6 @@ interface favouriteRepo {
     // check if a recipe is in the favourites of a user. It returns a Boolean indicating whether the recipe is a favourite or not.
     suspend fun isfavourite(userId: String, recipeId: String): Boolean
 
-    // get the number of favourites of a recipe. It returns a Flow of Int.
+    // get the number of favourites of a recipe.
     fun getfavouriteCount(recipeId: String): Flow<Int>
 }

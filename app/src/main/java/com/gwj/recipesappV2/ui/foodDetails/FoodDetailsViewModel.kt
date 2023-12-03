@@ -49,42 +49,78 @@ class FoodDetailsViewModel @Inject constructor(
     private val _favouriteCount = MutableStateFlow<Int>(0)
     val favouriteCount: StateFlow<Int> = _favouriteCount
 
+//    fun getMealByName(name: String) {
+//        viewModelScope.launch(Dispatchers.IO) {
+//            try {
+//                Meals.getMealByName(name).let {
+//                    _meal.value = it
+//                    _instructions.value = it?.strInstructions ?: ""
+//                    _strYoutube.value = it?.strYoutube ?: ""
+//                    _ingredientsWithMeasurements.value = listOf(
+//                        Pair(it?.strIngredient1 ?: "", it?.strMeasure1 ?: ""),
+//                        Pair(it?.strIngredient2 ?: "", it?.strMeasure2 ?: ""),
+//                        Pair(it?.strIngredient3 ?: "", it?.strMeasure3 ?: ""),
+//                        Pair(it?.strIngredient4 ?: "", it?.strMeasure4 ?: ""),
+//                        Pair(it?.strIngredient5 ?: "", it?.strMeasure5 ?: ""),
+//                        Pair(it?.strIngredient6 ?: "", it?.strMeasure6 ?: ""),
+//                        Pair(it?.strIngredient7 ?: "", it?.strMeasure7 ?: ""),
+//                        Pair(it?.strIngredient8 ?: "", it?.strMeasure8 ?: ""),
+//                        Pair(it?.strIngredient9 ?: "", it?.strMeasure9 ?: ""),
+//                        Pair(it?.strIngredient10 ?: "", it?.strMeasure10 ?: ""),
+//                        Pair(it?.strIngredient11 ?: "", it?.strMeasure11 ?: ""),
+//                        Pair(it?.strIngredient12 ?: "", it?.strMeasure12 ?: ""),
+//                        Pair(it?.strIngredient13 ?: "", it?.strMeasure13 ?: ""),
+//                        Pair(it?.strIngredient14 ?: "", it?.strMeasure14 ?: ""),
+//                        Pair(it?.strIngredient15 ?: "", it?.strMeasure15 ?: ""),
+//                        Pair(it?.strIngredient16 ?: "", it?.strMeasure16 ?: ""),
+//                        Pair(it?.strIngredient17 ?: "", it?.strMeasure17 ?: ""),
+//                        Pair(it?.strIngredient18 ?: "", it?.strMeasure18 ?: ""),
+//                        Pair(it?.strIngredient19 ?: "", it?.strMeasure19 ?: ""),
+//                        Pair(it?.strIngredient20 ?: "", it?.strMeasure20 ?: ""),
+//                    ).filter {
+//                        it.first.isNotEmpty() && it.second.isNotEmpty()
+//                    }
+//                }
+//            } catch (e: Exception) {
+//                //Log.d("debugging_FoodDetailsViewModel", "getMealByName_error: $e")
+//                //throw e
+//                _error.emit(e.message ?: "Meals Something went wrong")
+//            }
+//        }
+//    }
+
     fun getMealByName(name: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            try {
-                Meals.getMealByName(name).let {
+            safeApiCall {
+                Meals.getMealByName(name)?.let {
                     _meal.value = it
-                    _instructions.value = it?.strInstructions ?: ""
-                    _strYoutube.value = it?.strYoutube ?: ""
+                    _instructions.value = it.strInstructions ?: ""
+                    _strYoutube.value = it.strYoutube ?: ""
                     _ingredientsWithMeasurements.value = listOf(
-                        Pair(it?.strIngredient1 ?: "", it?.strMeasure1 ?: ""),
-                        Pair(it?.strIngredient2 ?: "", it?.strMeasure2 ?: ""),
-                        Pair(it?.strIngredient3 ?: "", it?.strMeasure3 ?: ""),
-                        Pair(it?.strIngredient4 ?: "", it?.strMeasure4 ?: ""),
-                        Pair(it?.strIngredient5 ?: "", it?.strMeasure5 ?: ""),
-                        Pair(it?.strIngredient6 ?: "", it?.strMeasure6 ?: ""),
-                        Pair(it?.strIngredient7 ?: "", it?.strMeasure7 ?: ""),
-                        Pair(it?.strIngredient8 ?: "", it?.strMeasure8 ?: ""),
-                        Pair(it?.strIngredient9 ?: "", it?.strMeasure9 ?: ""),
-                        Pair(it?.strIngredient10 ?: "", it?.strMeasure10 ?: ""),
-                        Pair(it?.strIngredient11 ?: "", it?.strMeasure11 ?: ""),
-                        Pair(it?.strIngredient12 ?: "", it?.strMeasure12 ?: ""),
-                        Pair(it?.strIngredient13 ?: "", it?.strMeasure13 ?: ""),
-                        Pair(it?.strIngredient14 ?: "", it?.strMeasure14 ?: ""),
-                        Pair(it?.strIngredient15 ?: "", it?.strMeasure15 ?: ""),
-                        Pair(it?.strIngredient16 ?: "", it?.strMeasure16 ?: ""),
-                        Pair(it?.strIngredient17 ?: "", it?.strMeasure17 ?: ""),
-                        Pair(it?.strIngredient18 ?: "", it?.strMeasure18 ?: ""),
-                        Pair(it?.strIngredient19 ?: "", it?.strMeasure19 ?: ""),
-                        Pair(it?.strIngredient20 ?: "", it?.strMeasure20 ?: ""),
+                        Pair(it.strIngredient1 ?: "", it.strMeasure1 ?: ""),
+                        Pair(it.strIngredient2 ?: "", it.strMeasure2 ?: ""),
+                        Pair(it.strIngredient3 ?: "", it.strMeasure3 ?: ""),
+                        Pair(it.strIngredient4 ?: "", it.strMeasure4 ?: ""),
+                        Pair(it.strIngredient5 ?: "", it.strMeasure5 ?: ""),
+                        Pair(it.strIngredient6 ?: "", it.strMeasure6 ?: ""),
+                        Pair(it.strIngredient7 ?: "", it.strMeasure7 ?: ""),
+                        Pair(it.strIngredient8 ?: "", it.strMeasure8 ?: ""),
+                        Pair(it.strIngredient9 ?: "", it.strMeasure9 ?: ""),
+                        Pair(it.strIngredient10 ?: "", it.strMeasure10 ?: ""),
+                        Pair(it.strIngredient11 ?: "", it.strMeasure11 ?: ""),
+                        Pair(it.strIngredient12 ?: "", it.strMeasure12 ?: ""),
+                        Pair(it.strIngredient13 ?: "", it.strMeasure13 ?: ""),
+                        Pair(it.strIngredient14 ?: "", it.strMeasure14 ?: ""),
+                        Pair(it.strIngredient15 ?: "", it.strMeasure15 ?: ""),
+                        Pair(it.strIngredient16 ?: "", it.strMeasure16 ?: ""),
+                        Pair(it.strIngredient17 ?: "", it.strMeasure17 ?: ""),
+                        Pair(it.strIngredient18 ?: "", it.strMeasure18 ?: ""),
+                        Pair(it.strIngredient19 ?: "", it.strMeasure19 ?: ""),
+                        Pair(it.strIngredient20 ?: "", it.strMeasure20 ?: ""),
                     ).filter {
                         it.first.isNotEmpty() && it.second.isNotEmpty()
                     }
                 }
-            } catch (e: Exception) {
-                //Log.d("debugging_FoodDetailsViewModel", "getMealByName_error: $e")
-                //throw e
-                _error.emit(e.message ?: "Meals Something went wrong")
             }
         }
     }
@@ -113,14 +149,6 @@ class FoodDetailsViewModel @Inject constructor(
         }
     }
 
-    fun fetchfavouriteCount(recipeId: String) {
-        viewModelScope.launch {
-            favouriteRepo.getfavouriteCount(recipeId).collect { count ->
-                _favouriteCount.value = count
-            }
-        }
-    }
-
     suspend fun checkIsfavourite(userId: String, idMeal: String?) {
         // 获取到Firebase实时数据库中"favourites"节点/Get a reference to the "favourites" node in the Firebase Realtime Database
         val dbRef = FirebaseDatabase.getInstance().getReference("favourites")
@@ -131,4 +159,15 @@ class FoodDetailsViewModel @Inject constructor(
         // if the recipe is marked as favourite, checkbox is checked
         _isfavourite.value = isfavourite
     }
+
+    fun fetchfavouriteCount(recipeId: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            safeApiCall {
+                favouriteRepo.getfavouriteCount(recipeId)
+            }?.collect {
+                _favouriteCount.value = it
+            }
+        }
+    }
+
 }

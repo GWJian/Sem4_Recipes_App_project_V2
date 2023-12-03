@@ -89,7 +89,7 @@ class ProfileViewModel @Inject constructor(
             viewModelScope.launch(Dispatchers.IO) {
                 safeApiCall {
                     favouriteRepo.getAllfavouriteRecipe(id)
-                }?.collect() {
+                }?.collect {
                     _favourite.value = it
                 }
             }

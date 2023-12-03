@@ -50,7 +50,8 @@ class favouriteRepoRealTimeImpl(
             //save the recipe to Realtime database with userId -> recipe.id and the recipe name
             dbRef.child(userId).child(recipeId.id).setValue(recipeId).await()
             //update the favouriteCount in the database
-            val favouriteCountRef = dbRef.child("favouriteCount").child(recipeId.idMeal).child("count")
+            val favouriteCountRef =
+                dbRef.child("favouriteCount").child(recipeId.idMeal).child("count")
             val currentCount = favouriteCountRef.get().await().getValue(Int::class.java) ?: 0
             favouriteCountRef.setValue(currentCount + 1).await()
             //if success return true
@@ -84,6 +85,7 @@ class favouriteRepoRealTimeImpl(
     override fun getfavouriteCount(recipeId: String): Flow<Int> = callbackFlow {
         val listener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                //get the value from database, if value is empty or null, return 0
                 val count = snapshot.getValue<Int>() ?: 0
                 trySend(count)
             }
@@ -92,7 +94,8 @@ class favouriteRepoRealTimeImpl(
                 throw error.toException()
             }
         }
-
+        //this will be called when the data is changed in the database
+        //favouriteCount -> recipe.id -> count -> get the value from database
         dbRef.child("favouriteCount").child(recipeId).child("count").addValueEventListener(listener)
         awaitClose()
     }
