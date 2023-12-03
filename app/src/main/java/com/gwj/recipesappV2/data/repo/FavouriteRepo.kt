@@ -6,17 +6,17 @@ import kotlinx.coroutines.flow.Flow
 interface favouriteRepo {
 
     // get all favourite recipes of a user. It returns a Flow of list of favouriteRecipe.
-    fun getAllfavouriteRecipe(userId: String): Flow<List<favouriteRecipe>>
+    fun getAllFavouriteRecipe(userId: String): Flow<List<favouriteRecipe>>
 
     // add a recipe to the favourites of a user. It returns a Flow of Boolean indicating the success of the operation.
-    suspend fun AddTofavourite(userId: String, recipeId: favouriteRecipe): Flow<Boolean>
+    suspend fun addToFavourite(userId: String, recipeId: favouriteRecipe): Flow<Boolean>
 
     // remove a recipe from the favourites of a user.
-    suspend fun RemoveFromfavourite(userId: String, recipeId: String)
+    suspend fun removeFromFavourite(userId: String, recipeId: String)
 
     // check if a recipe is in the favourites of a user. It returns a Boolean indicating whether the recipe is a favourite or not.
-    suspend fun isfavourite(userId: String, recipeId: String): Boolean
+    suspend fun isFavourite(userId: String, recipeId: String): Boolean
 
     // get the number of favourites of a recipe.
-    fun getfavouriteCount(recipeId: String): Flow<Int>
+    fun getFavouriteCount(recipeId: String): Flow<Int>
 }

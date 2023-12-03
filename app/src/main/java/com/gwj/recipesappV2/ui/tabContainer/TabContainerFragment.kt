@@ -44,7 +44,7 @@ class TabContainerFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentTabContainerBinding.inflate(inflater, container, false)
         return binding.root
     }

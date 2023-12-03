@@ -16,7 +16,7 @@ import kotlinx.coroutines.tasks.await
 class favouriteRepoRealTimeImpl(
     private val dbRef: DatabaseReference,
 ) : favouriteRepo {
-    override fun getAllfavouriteRecipe(userId: String) = callbackFlow {
+    override fun getAllFavouriteRecipe(userId: String) = callbackFlow {
         val listener = object : ValueEventListener {
             //this method will be called when the data is changed in the database
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -44,7 +44,7 @@ class favouriteRepoRealTimeImpl(
         awaitClose()
     }
 
-    override suspend fun AddTofavourite(userId: String, recipeId: favouriteRecipe): Flow<Boolean> {
+    override suspend fun addToFavourite(userId: String, recipeId: favouriteRecipe): Flow<Boolean> {
         //make a boolean flow, if success return true save to database, if fail return false
         return flow {
             //save the recipe to Realtime database with userId -> recipe.id and the recipe name
@@ -62,7 +62,7 @@ class favouriteRepoRealTimeImpl(
         }
     }
 
-    override suspend fun RemoveFromfavourite(userId: String, recipeId: String) {
+    override suspend fun removeFromFavourite(userId: String, recipeId: String) {
         //删除数据库中的数据,通过userId和recipe.id来删除/ delete the data in the database by userId and recipe.id
         dbRef.child(userId).child(recipeId).removeValue().await()
         //update the favouriteCount in the database
@@ -71,7 +71,7 @@ class favouriteRepoRealTimeImpl(
         favouriteCountRef.setValue(currentCount - 1).await()
     }
 
-    override suspend fun isfavourite(userId: String, recipeId: String): Boolean {
+    override suspend fun isFavourite(userId: String, recipeId: String): Boolean {
         // Get a reference to the specific recipe in the database
         val recipeRef = dbRef.child(userId).child(recipeId)
 
@@ -82,7 +82,7 @@ class favouriteRepoRealTimeImpl(
         return snapshot.exists()
     }
 
-    override fun getfavouriteCount(recipeId: String): Flow<Int> = callbackFlow {
+    override fun getFavouriteCount(recipeId: String): Flow<Int> = callbackFlow {
         val listener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 //get the value from database, if value is empty or null, return 0

@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val Category: CategoryRepo,
+    private val category: CategoryRepo,
     private val Meals: GetAllMealsRepo
 ) : BaseViewModel() {
     protected val _categories: MutableStateFlow<List<Category>> = MutableStateFlow(emptyList())
@@ -51,7 +51,7 @@ class HomeViewModel @Inject constructor(
     private fun getAllCategories() {
         viewModelScope.launch(Dispatchers.IO) {
             safeApiCall {
-                Category.getAllCategories().let {
+                category.getAllCategories().let {
                     _categories.value = it
                 }
             }

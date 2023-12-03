@@ -29,7 +29,7 @@ class InstructionsFragment : BaseFragment<FragmentInstructionsBinding>() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentInstructionsBinding.inflate(inflater, container, false)
         return binding.root
     }

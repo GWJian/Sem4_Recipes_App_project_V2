@@ -1,7 +1,6 @@
 package com.gwj.recipesappV2.ui.foodDetails
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +11,6 @@ import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
-import com.gwj.recipesappV2.data.model.favouriteRecipe
-import com.gwj.recipesappV2.data.repo.favouriteRepoRealTimeImpl
 import com.gwj.recipesappV2.databinding.FragmentFoodDetailsBinding
 import com.gwj.recipesappV2.ui.adapters.FragmentAdapter
 import com.gwj.recipesappV2.ui.base.BaseFragment
@@ -42,7 +38,7 @@ class FoodDetailsFragment : BaseFragment<FragmentFoodDetailsBinding>() {
         super.setupUIComponents()
         viewModel.getMealByName(args.mealName) //get the meal by name
 
-        viewModel.fetchfavouriteCount(args.mealId) //get the favourite count
+        viewModel.fetchFavouriteCount(args.mealId) //get the favourite count
 
         binding.run {
 
@@ -55,7 +51,7 @@ class FoodDetailsFragment : BaseFragment<FragmentFoodDetailsBinding>() {
                     //get the current meal
                     val meal = viewModel.meal.first()
                     // 根据复选框的状态切换餐点的收藏状态 / Toggle the favourite status of the meal based on the state of the checkbox
-                    viewModel.togglefavourite(userId, meal, cbfavourite.isChecked)
+                    viewModel.toggleFavourite(userId, meal, cbfavourite.isChecked)
                 }
             }
 
@@ -80,19 +76,20 @@ class FoodDetailsFragment : BaseFragment<FragmentFoodDetailsBinding>() {
                     .load(meal?.strMealThumb)
                     .into(binding.ivFoodImage)
 
+                //get current user uid, if match, show the checkbox to true
                 val user = FirebaseAuth.getInstance().currentUser
                 val userId = user?.uid ?: ""
-                viewModel.checkIsfavourite(userId, meal?.idMeal ?: "")
+                viewModel.checkIsFavourite(userId, meal?.idMeal ?: "")
             }
         }
         //============================ show the meal End ============================//
 
         //============================ check checkbox Is favourite or not Start ============================//
         lifecycleScope.launch {
-            // 收集来自ViewModel的isfavourite StateFlow/ collect the isfavourite StateFlow from the ViewModel
-            viewModel.isfavourite.collect { isfavourite ->
+            // 收集来自ViewModel的isFavourite StateFlow/ collect the isFavourite StateFlow from the ViewModel
+            viewModel.isFavourite.collect { isFavourite ->
                 // 根据收藏状态更新复选框的状态 / Update the checkbox state based on the favourite status
-                binding.cbfavourite.isChecked = isfavourite
+                binding.cbfavourite.isChecked = isFavourite
             }
         }
         //============================ check checkbox Is favourite or not End ============================//
