@@ -35,13 +35,13 @@ class FoodDetailsViewModel @Inject constructor(
     private val _strYoutube: MutableStateFlow<String> = MutableStateFlow("")
     val strYoutube: StateFlow<String> = _strYoutube
 
-    private val _favouriteStatus = MutableStateFlow<String>("")
+    private val _favouriteStatus = MutableStateFlow("")
     val favouriteStatusFlow: StateFlow<String> = _favouriteStatus
 
-    private val _isFavourite = MutableStateFlow<Boolean>(false)
+    private val _isFavourite = MutableStateFlow(false)
     val isFavourite: StateFlow<Boolean> = _isFavourite
 
-    private val _favouriteCount = MutableStateFlow<Int>(0)
+    private val _favouriteCount = MutableStateFlow(0)
     val favouriteCount: StateFlow<Int> = _favouriteCount
 
 //    fun getMealByName(name: String) {
