@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
 import com.gwj.recipesappV2.R
-import com.gwj.recipesappV2.data.model.FavoriteRecipe
+import com.gwj.recipesappV2.data.model.favouriteRecipe
 import com.gwj.recipesappV2.databinding.FragmentProfileBinding
 import com.gwj.recipesappV2.ui.adapters.FavouriteRecipeAdapter
 import com.gwj.recipesappV2.ui.base.BaseFragment
@@ -50,7 +50,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -77,9 +77,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
     private fun favouriteRecipeAdapter() {
         favouriteRecipeAdapter = FavouriteRecipeAdapter(emptyList())
         favouriteRecipeAdapter.listener = object : FavouriteRecipeAdapter.Listener {
-            override fun onClick(recipe: FavoriteRecipe) {
+            override fun onClick(recipe: favouriteRecipe) {
                 val action =
-                    TabContainerFragmentDirections.actionTabContainerToFoodDetails(recipe.strMeal)
+                    TabContainerFragmentDirections.actionTabContainerToFoodDetails(recipe.strMeal, recipe.idMeal)
                 navController.navigate(action)
             }
         }

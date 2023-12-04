@@ -4,12 +4,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.gwj.recipesappV2.data.model.FavoriteRecipe
+import com.gwj.recipesappV2.data.model.favouriteRecipe
 import com.gwj.recipesappV2.databinding.LayoutFavouriteRecipeBinding
 
-// Adapter class for the RecyclerView that displays the list of favorite recipes
+// Adapter class for the RecyclerView that displays the list of favourite recipes
 class FavouriteRecipeAdapter(
-    private var recipes: List<FavoriteRecipe>
+    private var recipes: List<favouriteRecipe>
 ) : RecyclerView.Adapter<FavouriteRecipeAdapter.FavouriteRecipeViewHolder>() {
     var listener: Listener? = null // Listener for click events on the recipe items
 
@@ -37,7 +37,7 @@ class FavouriteRecipeAdapter(
     }
 
     // set the recipes list of the adapter
-    fun setFavourite(recipes:List<FavoriteRecipe>){
+    fun setFavourite(recipes:List<favouriteRecipe>){
         this.recipes = recipes
         notifyDataSetChanged()
     }
@@ -48,7 +48,7 @@ class FavouriteRecipeAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         // bind the data to the recipe item layout
-        fun bind(recipe: FavoriteRecipe) {
+        fun bind(recipe: favouriteRecipe) {
             binding.run {
                 tvMealName.text = recipe.strMeal // Set the meal name
 
@@ -65,7 +65,7 @@ class FavouriteRecipeAdapter(
     }
 
     interface Listener {
-        fun onClick(recipe: FavoriteRecipe) // handle the click event on the recipe item
+        fun onClick(recipe: favouriteRecipe) // handle the click event on the recipe item
     }
 
 }

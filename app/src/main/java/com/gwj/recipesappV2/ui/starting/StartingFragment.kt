@@ -22,7 +22,7 @@ class StartingFragment : BaseFragment<FragmentStartingBinding>() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentStartingBinding.inflate(inflater,container,false)
         return binding.root
     }

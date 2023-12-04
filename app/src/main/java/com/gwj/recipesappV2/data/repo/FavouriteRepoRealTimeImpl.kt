@@ -1,12 +1,11 @@
 package com.gwj.recipesappV2.data.repo
 
-import android.util.Log
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.getValue
-import com.gwj.recipesappV2.data.model.FavoriteRecipe
+import com.gwj.recipesappV2.data.model.favouriteRecipe
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -14,23 +13,23 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 
-class FavoriteRepoRealTimeImpl(
+class favouriteRepoRealTimeImpl(
     private val dbRef: DatabaseReference,
-) : FavoriteRepo {
-    override fun getAllFavoriteRecipe(userId: String) = callbackFlow {
+) : favouriteRepo {
+    override fun getAllFavouriteRecipe(userId: String) = callbackFlow {
         val listener = object : ValueEventListener {
             //this method will be called when the data is changed in the database
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 // create a list of recipe to store the data from database
-                val recipe = mutableListOf<FavoriteRecipe>()
+                val recipe = mutableListOf<favouriteRecipe>()
                 //loop through the snapshot to get the data
                 for (recipeSnapshot in snapshot.children) {
                     //if the value is not empty, add the value to the list
-                    recipeSnapshot.getValue<FavoriteRecipe>()?.let {
+                    recipeSnapshot.getValue<favouriteRecipe>()?.let {
                         recipe.add(it.copy(id = recipeSnapshot.key ?: ""))
                     }
-                    //Log.d("debugging_FavoriteRepoRealTimeImpl", "getAllFavoriteRecipe" + recipeSnapshot.key.toString())
+                    //Log.d("debugging_favouriteRepoRealTimeImpl", "getAllfavouriteRecipe" + recipeSnapshot.key.toString())
                 }
                 trySend(recipe)
             }
@@ -45,11 +44,16 @@ class FavoriteRepoRealTimeImpl(
         awaitClose()
     }
 
-    override suspend fun AddToFavorite(userId: String, recipe: FavoriteRecipe): Flow<Boolean> {
+    override suspend fun addToFavourite(userId: String, recipeId: favouriteRecipe): Flow<Boolean> {
         //make a boolean flow, if success return true save to database, if fail return false
         return flow {
             //save the recipe to Realtime database with userId -> recipe.id and the recipe name
-            dbRef.child(userId).child(recipe.id).setValue(recipe).await()
+            dbRef.child(userId).child(recipeId.id).setValue(recipeId).await()
+            //update the favouriteCount in the database
+            val favouriteCountRef =
+                dbRef.child("favouriteCount").child(recipeId.idMeal).child("count")
+            val currentCount = favouriteCountRef.get().await().getValue(Int::class.java) ?: 0
+            favouriteCountRef.setValue(currentCount + 1).await()
             //if success return true
             emit(true)
         }.catch {
@@ -58,21 +62,45 @@ class FavoriteRepoRealTimeImpl(
         }
     }
 
-    override suspend fun RemoveFromFavorite(userId: String, id: String) {
+    override suspend fun removeFromFavourite(userId: String, recipeId: String) {
         //删除数据库中的数据,通过userId和recipe.id来删除/ delete the data in the database by userId and recipe.id
-        dbRef.child(userId).child(id).removeValue().await()
+        dbRef.child(userId).child(recipeId).removeValue().await()
+        //update the favouriteCount in the database
+        val favouriteCountRef = dbRef.child("favouriteCount").child(recipeId).child("count")
+        val currentCount = favouriteCountRef.get().await().getValue(Int::class.java) ?: 0
+        favouriteCountRef.setValue(currentCount - 1).await()
     }
 
-    override suspend fun isFavorite(userId: String, id: String): Boolean {
+    override suspend fun isFavourite(userId: String, recipeId: String): Boolean {
         // Get a reference to the specific recipe in the database
-        val recipeRef = dbRef.child(userId).child(id)
+        val recipeRef = dbRef.child(userId).child(recipeId)
 
         // Try to get the value at the reference
         val snapshot = recipeRef.get().await()
 
-        // If the snapshot exists, the recipe is marked as favorite
+        // If the snapshot exists, the recipe is marked as favourite
         return snapshot.exists()
     }
+
+    override fun getFavouriteCount(recipeId: String): Flow<Int> = callbackFlow {
+        val listener = object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                //get the value from database, if value is empty or null, return 0
+                val count = snapshot.getValue<Int>() ?: 0
+                trySend(count)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                throw error.toException()
+            }
+        }
+        //this will be called when the data is changed in the database
+        //favouriteCount -> recipe.id -> count -> get the value from database
+        dbRef.child("favouriteCount").child(recipeId).child("count").addValueEventListener(listener)
+        awaitClose()
+    }
+
+
 }
 
 // This is child

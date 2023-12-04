@@ -33,7 +33,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -73,7 +73,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             override fun onClick(meal: Meal) {
                 // When a meal is clicked, navigate to the food details fragment
                 val action =
-                    TabContainerFragmentDirections.actionTabContainerToFoodDetails(meal.strMeal)
+                    TabContainerFragmentDirections.actionTabContainerToFoodDetails(meal.strMeal, meal.idMeal)
                 navController.navigate(action)
             }
         }
