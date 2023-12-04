@@ -3,11 +3,13 @@
 ## Introduction
 Welcome to Recipes App, a user-friendly recipe management application. This app allows users to explore a wide range of recipes, view detailed ingredients and instructions, and manage their favorite recipes with ease. This app is designed to provide a seamless and enjoyable culinary journey for all food enthusiasts.
 
-![Login Page](./assets/login.png)
-![Home Page](./assets/homepage.png)
-![Categories Page](./assets/categories.png)
-![profile Page](./assets/profile.png)
-![Recipe Details Page](./assets/recipe_details.png)
+<div style="white-space: nowrap; overflow-x: auto;">
+    <img src="./assets/login.png" alt="Login Page" style="width: 200px; height: auto; display: inline-block;">
+    <img src="./assets/homepage.png" alt="Home Page" style="width: 200px; height: auto; display: inline-block;">
+    <img src="./assets/categories.png" alt="Categories Page" style="width: 200px; height: auto; display: inline-block;">
+    <img src="./assets/profile.png" alt="Profile Page" style="width: 200px; height: auto; display: inline-block;">
+    <img src="./assets/recipe_details.png" alt="Recipe Details Page" style="width: 200px; height: auto; display: inline-block;">
+</div>
 
 ## Features
 
