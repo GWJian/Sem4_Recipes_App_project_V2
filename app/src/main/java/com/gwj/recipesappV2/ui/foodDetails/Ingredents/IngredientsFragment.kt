@@ -55,7 +55,6 @@ class IngredientsFragment : BaseFragment<FragmentIngredentsBinding>() {
     override fun setupViewModelObserver() {
         super.setupViewModelObserver()
 
-        // launch a coroutine
         lifecycleScope.launch {
             // Collect the ingredients from the ViewModel and update the IngredientsAdapter
             viewModel.ingredientsWithMeasurements.collect { ingredients ->
