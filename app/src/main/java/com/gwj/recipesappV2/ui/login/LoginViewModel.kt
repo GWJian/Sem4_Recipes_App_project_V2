@@ -2,13 +2,9 @@ package com.gwj.recipesappV2.ui.login
 
 import androidx.lifecycle.viewModelScope
 import com.gwj.recipesappV2.core.service.AuthService
-import com.gwj.recipesappV2.data.repo.favouriteRepo
-import com.gwj.recipesappV2.data.repo.UserRepo
 import com.gwj.recipesappV2.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

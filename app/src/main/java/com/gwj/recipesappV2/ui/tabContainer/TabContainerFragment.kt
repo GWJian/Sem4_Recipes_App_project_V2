@@ -26,13 +26,13 @@ class TabContainerFragment : Fragment() {
             override fun handleOnBackPressed() {
                 // Show dialog to confirm exit app
                 AlertDialog.Builder(requireContext())
-                    .setTitle("Exit App")
-                    .setMessage("Are you sure you want to exit?")
-                    .setPositiveButton("Yes") { _, _ ->
+                    .setTitle(getString(R.string.exit_app))
+                    .setMessage(getString(R.string.are_you_sure))
+                    .setPositiveButton(getString(R.string.yes)) { _, _ ->
                         // Exit the app
                         activity?.finish()
                     }
-                    .setNegativeButton("No", null)
+                    .setNegativeButton(getString(R.string.no), null)
                     .show()
             }
         }
@@ -62,12 +62,12 @@ class TabContainerFragment : Fragment() {
         TabLayoutMediator(binding.tlTabs, binding.vpContainer) { tab, position ->
             when (position) {
                 0 -> {
-                    tab.text = "Home"
+                    tab.text = getString(R.string.home)
                     tab.setIcon(R.drawable.ic_home)
                 }
 
                 else -> {
-                    tab.text = "Profile"
+                    tab.text = getString(R.string.profile)
                     tab.setIcon(R.drawable.ic_person)
                 }
             }
