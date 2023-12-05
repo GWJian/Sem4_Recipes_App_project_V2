@@ -1,7 +1,7 @@
 # Sem4_Recipes_App_project_V2
 
 ## Introduction
-Welcome to Recipes App, a user-friendly recipe management application. This app allows users to explore a wide range of recipes, view detailed ingredients and instructions, and manage their favorite recipes with ease. This app is designed to provide a seamless and enjoyable culinary journey for all food enthusiasts.
+Welcome to Recipes App, it's a user-friendly recipe management application. This app allows users to explore a wide range of recipes, view detailed ingredients and instructions, and manage their favorite recipes with ease. This app is designed to provide a seamless and enjoyable culinary journey for all food enthusiasts. Best of all, the Recipes App is completely free to use with no ads and no subscription fees.
 
 <div style="white-space: nowrap; overflow-x: auto;">
     <img src="./assets/homepage.png" alt="Home Page" style="width: 200px; height: auto; display: inline-block;">
