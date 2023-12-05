@@ -44,7 +44,7 @@ class InstructionsFragment : BaseFragment<FragmentInstructionsBinding>() {
         lifecycleScope.launch {
             // Collect the instructions from the ViewModel and update the TextView
             viewModel.instructions.collect { instructions ->
-                binding.instructions.text = "Instructions: \n$instructions"
+                binding.instructions.text = getString(R.string.instructions, instructions)
                     .replace(Regex("\r"), "\n")
             }
         }

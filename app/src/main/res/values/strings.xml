@@ -39,4 +39,5 @@
     <string name="profile">Profile</string>
     <string name="add_to_favourite">Added to favourites</string>
     <string name="failed_to_add">Failed to add to favourites</string>
+    <string name="instructions">Instructions: \n%s</string>
 </resources>
