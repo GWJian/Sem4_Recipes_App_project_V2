@@ -22,13 +22,11 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class AppModule(
-    private val auth: FirebaseAuth = Firebase.auth
-) {
+class AppModule{
     //========================================== AuthService Start =================================================
     @Provides
     @Singleton
-    fun provideAuth(@ApplicationContext context: Context):AuthService{
+    fun provideAuth():AuthService{
         return AuthService()
     }
 //========================================== StoreService Start =================================================

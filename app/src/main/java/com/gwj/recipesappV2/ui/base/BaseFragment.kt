@@ -36,6 +36,7 @@ abstract class BaseFragment<T: ViewBinding> :Fragment() {
         setupViewModelObserver()
     }
 
+    //open allows to extend and override the function
     protected open fun onFragmentResult() {}
 
     protected open fun setupViewModelObserver(){
